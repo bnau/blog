@@ -1,0 +1,163 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><link rel=icon href=../../images/fav.png type=image/gif><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-xxxxxx-x","auto"),ga("send","pageview"))</script><link rel=stylesheet href=../../css/bootstrap.min.css media=all><link rel=stylesheet href=../../css/all.min.css media=all><link rel=stylesheet href=../../css/fontawesome.min.css media=all><link rel=stylesheet href=../../css/v3/darkmode.css media=all><style>html{scrollbar-width:thin;scrollbar-color:#6c757d transparent}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:#6c757d}</style><link rel=stylesheet href=../../css/v3/navbar-footer.css><link rel=preconnect href=https://fonts.gstatic.com><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel=stylesheet><script src=../../js/popper.min.js></script><meta name=description content><title>Tester ses scénarios utilisateur avec Testing-Library</title><link href=../../css/v3/post.css rel=stylesheet></head><body class=text-dark><script src=../../js/jquery.slim.min.js></script>
+<script src=../../js/bootstrap.min.js></script><div class=container><nav class="pt-3 navbar navbar-expand-lg navbar-light" data-aos=fade-down data-aos-easing=linear data-aos-duration=500><a class=navbar-brand href=../../><img src=../../images/fav.png width=30 height=30 class="d-inline-block align-top">
+Bertrand Nau | Fullstack Developer / DevOps</a>
+<button class="navbar-toggler border-0" type=button data-toggle=collapse data-target=#navbarNavDropdown aria-controls=navbarNavDropdown aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarNavDropdown><ul class="navbar-nav ml-auto text-center"><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../#about aria-label=about>About</a></li><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../#experience aria-label=experience>Experience</a></li><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../#education aria-label=education>Education</a></li><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../#projects aria-label=projects>Projects</a></li><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../#achievements aria-label=achievements>Achievements</a></li><li class="nav-item navbar-text"><a class="nav-link text-dark" href=../../blog aria-label=Blog>Blog</a></li><li class="nav-item navbar-text"><div class="custom-control custom-switch"><input type=checkbox class=custom-control-input id=customSwitch1 autocomplete=on>
+<label class="pt-2 darkmode-label" for=customSwitch1 style=cursor:pointer><i class="fas fa-lg fa-moon"></i>
+<i class="fas fa-lg fa-sun d-none text-warning"></i></label></div></li></ul></div></nav></div><section style=font-family:roboto,sans-serif><div class="bottom-share d-none"><div class="my-1 mb-3 share-container"><div class="d-block my-1 text-center" data-toggle=tooltip data-placement=left title="Tooltip on left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><path fill="#03a9f4" d="M42 37c0 2.762-2.239 5-5 5H11c-2.762.0-5-2.238-5-5V11c0-2.762 2.238-5 5-5h26c2.761.0 5 2.238 5 5V37z"/><path fill="#fff" d="M36 17.12c-.882.391-1.999.758-3 .88 1.018-.604 2.633-1.862 3-3-.951.559-2.671 1.156-3.793 1.372C31.311 15.422 30.033 15 28.617 15 25.897 15 24 17.305 24 20v2c-4 0-7.9-3.047-10.327-6-.427.721-.667 1.565-.667 2.457.0 1.819 1.671 3.665 2.994 4.543-.807-.025-2.335-.641-3-1 0 .016.0.036.0.057.0 2.367 1.661 3.974 3.912 4.422C16.501 26.592 16 27 14.072 27c.626 1.935 3.773 2.958 5.928 3-1.686 1.307-4.692 2-7 2-.399.0-.615.022-1-.023C14.178 33.357 17.22 34 20 34c9.057.0 14-6.918 14-13.37.0-.212-.007-.922-.018-1.13C34.95 18.818 35.342 18.104 36 17.12"/></svg></div><div class="d-block my-1 text-center" data-toggle=tooltip data-placement=left title="Tooltip on left"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="48" data-name="Layer 1" viewBox="0 0 32 32"><path fill="#ea4435" d="M16.58 19.1068 3.89 11.0311A3 3 0 017.1109 5.97l9.31 5.9243L24.78 6.0428a3 3 0 013.44 4.9151z"/><path fill="#00ac47" d="M25.5 5.5h4a0 0 0 010 0v18a3 3 0 01-3 3h0a3 3 0 01-3-3V7.5a2 2 0 012-2z" transform="rotate(180 26.5 16)"/><path fill="#ffba00" d="M29.4562 8.0656c-.0088-.06-.0081-.1213-.0206-.1812-.0192-.0918-.0549-.1766-.0823-.2652a2.9312 2.9312.0 00-.0958-.2993c-.02-.0475-.0508-.0892-.0735-.1354A2.9838 2.9838.0 0028.9686 6.8c-.04-.0581-.09-.1076-.1342-.1626a3.0282 3.0282.0 00-.2455-.2849c-.0665-.0647-.1423-.1188-.2146-.1771a3.02 3.02.0 00-.24-.1857c-.0793-.0518-.1661-.0917-.25-.1359-.0884-.0461-.175-.0963-.267-.1331-.0889-.0358-.1837-.0586-.2766-.0859s-.1853-.06-.2807-.0777a3.0543 3.0543.0 00-.357-.036c-.0759-.0053-.1511-.0186-.2273-.018a2.9778 2.9778.0 00-.4219.0425c-.0563.0084-.113.0077-.1689.0193a33.211 33.211.0 00-.5645.178c-.0515.022-.0966.0547-.1465.0795A2.901 2.901.0 0023.5 8.5v5.762l4.72-3.3043a2.8878 2.8878.0 001.2359-2.8923z"/><path fill="#4285f4" d="M5.5 5.5h0a3 3 0 013 3v18a0 0 0 010 0h-4a2 2 0 01-2-2V8.5a3 3 0 013-3z"/><path fill="#c52528" d="M2.5439 8.0656c.0088-.06.0081-.1213.0206-.1812.0192-.0918.0549-.1766.0823-.2652A2.9312 2.9312.0 012.7426 7.32c.02-.0475.0508-.0892.0736-.1354A2.9719 2.9719.0 013.0316 6.8c.04-.0581.09-.1076.1342-.1626a3.0272 3.0272.0 01.2454-.2849c.0665-.0647.1423-.1188.2147-.1771a3.0005 3.0005.0 01.24-.1857c.0793-.0518.1661-.0917.25-.1359A2.9747 2.9747.0 014.3829 5.72c.089-.0358.1838-.0586.2766-.0859s.1853-.06.2807-.0777a3.0565 3.0565.0 01.357-.036c.076-.0053.1511-.0186.2273-.018a2.9763 2.9763.0 01.4219.0425c.0563.0084.113.0077.169.0193a2.9056 2.9056.0 01.286.0888 2.9157 2.9157.0 01.2785.0892c.0514.022.0965.0547.1465.0795a2.9745 2.9745.0 01.3742.21A2.9943 2.9943.0 018.5 8.5v5.762L3.78 10.9579A2.8891 2.8891.0 012.5439 8.0656z"/></svg></div><div class="d-block my-1 text-center" data-toggle=tooltip data-placement=left title="Tooltip on left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="38" height="48"><path fill="#4caf50" d="M8.002.0h-.004C3.587.0.0 3.588.0 8a7.94 7.94.0 001.523 4.689l-.997 2.972 3.075-.983A7.93 7.93.0 008.002 16C12.413 16 16 12.411 16 8s-3.587-8-7.998-8z"/><path fill="#fafafa" d="M12.657 11.297c-.193.545-.959.997-1.57 1.129-.418.089-.964.16-2.802-.602-2.351-.974-3.865-3.363-3.983-3.518-.113-.155-.95-1.265-.95-2.413s.583-1.707.818-1.947c.193-.197.512-.287.818-.287.099.0.188.005.268.009.235.01.353.024.508.395.193.465.663 1.613.719 1.731.057.118.114.278.034.433-.075.16-.141.231-.259.367s-.23.24-.348.386c-.108.127-.23.263-.094.498.136.23.606.997 1.298 1.613.893.795 1.617 1.049 1.876 1.157.193.08.423.061.564-.089.179-.193.4-.513.625-.828.16-.226.362-.254.574-.174.216.075 1.359.64 1.594.757.235.118.39.174.447.273.056.099.056.564-.137 1.11z"/></svg></div></div><div class=text-center data-toggle=tooltip data-placement=left title="Share this article"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 25 25"><g transform="translate(0 -1027.362)"><circle cx="657.054" cy="437.094" r="15.268" fill="#9257a2" fill-rule="evenodd" transform="translate(-525.439 682.007) scale(.81871)"/><path fill="#6c4676" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M12.943359 24.984375A12.5 12.5.0 0013.384766 24.96875 12.5 12.5.0 0014.625 24.818359 12.5 12.5.0 0015.84375 24.544922 12.5 12.5.0 0017.029297 24.150391 12.5 12.5.0 0018.169922 23.640625a12.5 12.5.0 001.083984-.623047A12.5 12.5.0 0020.269531 22.291016 12.5 12.5.0 0021.208984 21.466797 12.5 12.5.0 0022.060547 20.552734 12.5 12.5.0 0022.816406 19.558594a12.5 12.5.0 00.654297-1.066406A12.5 12.5.0 0024.013672 17.367188 12.5 12.5.0 0024.441406 16.193359 12.5 12.5.0 0024.496094 15.974609L14.265625 5.7441406C13.812473 5.2910406 13.187396 5.0097656 12.5 5.0097656c-1.37479.0-2.5 1.1252-2.5 2.5C10 7.5307656 10.005259 7.5493125 10.005859 7.5703125 9.4896699 7.8077125 9.0133544 8.1147296 8.5878906 8.4804688 8.374766 8.6636758 8.1738297 8.8614634 7.9882812 9.0722656 7.0619905 10.124095 6.5 11.499953 6.5 13.009766c0 .4787.073385.939017999999999.1796875 1.386718C5.9748502 14.839884 5.5 15.620266 5.5 16.509766c0 .6874.2812253 1.312525.734375 1.765625l6.708984 6.708984z" color="#000" font-family="sans-serif" font-weight="400" transform="translate(0 1027.362)"/><path fill="#fff" d="m7.9941406 1c-1.3747895.0-2.5 1.1252-2.5 2.5.0.02072.00535.039943.00586.060547C3.4352817 4.5101164 1.9941406 6.5842949 1.9941406 9c0 .4787281.073385.9389814.1796875 1.386719C1.4689908 10.830108.99414062 11.610545.99414062 12.5c0 1.3748 1.12521048 2.5 2.49999998 2.5.6665407.0 1.2712865-.268072 1.7207032-.697266C6.0479519 14.74009 6.9900874 15 7.9941406 15c1.0040575.0 1.9479689-.258016 2.7812504-.695312C11.224611 14.732762 11.828584 15 12.494141 15c1.374789.0 2.5-1.1252 2.5-2.5.0-.887901-.472993-1.667522-1.175782-2.111328C13.924794 9.941126 13.994141 9.4787929 13.994141 9c0-2.4173981-1.439125-4.4947611-3.50586-5.4433594 446e-6-.019294.0059-.037245.0059-.056641.0-1.3748-1.1252108-2.5-2.5000004-2.5zm0 1c.8343495.0 1.5.6657 1.5 1.5.0.8344-.6656505 1.5-1.5 1.5-.8343494.0-1.5-.6656-1.5-1.5.0-.8343.6656506-1.5 1.5-1.5zM5.7363281 4.5507812C6.1363719 5.4015827 6.9962448 6 7.9941406 6 8.9914269 6 9.8515843 5.4027009 10.251953 4.5527344 11.874506 5.3778725 12.994141 7.0495149 12.994141 9c0 .358063-.04812.702711-.119141 1.039062C12.74983 10.019561 12.62455 10 12.494141 10c-1.37479.0-2.5000004 1.1252-2.5000004 2.5.0.347738.073318.676884.2031254.978516C9.5317018 13.806899 8.7887215 14 7.9941406 14 7.1996182 14 6.4561816 13.808725 5.7910156 13.480469 5.9212525 13.178414 5.9941406 12.848348 5.9941406 12.5c0-1.3748-1.1252104-2.5-2.5-2.5C3.3643933 10 3.2397998 10.01975 3.1152344 10.03906 3.0437876 9.7026723 2.9941406 9.3583587 2.9941406 9c0-1.9503184 1.1196952-3.6242663 2.7421875-4.4492188zM3.4941406 11c.8343495.0 1.5.6657 1.5 1.5.0.8344-.6656505 1.5-1.5 1.5-.8343494.0-1.5-.6656-1.5-1.5.0-.8343.6656506-1.5 1.5-1.5zm9.0000004.0c.834349.0 1.5.6657 1.5 1.5.0.8344-.665651 1.5-1.5 1.5-.83435.0-1.5-.6656-1.5-1.5.0-.8343.66565-1.5 1.5-1.5z" color="#000" font-family="sans-serif" font-weight="400" overflow="visible" transform="translate(4.506 1031.372)" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal"/></g></svg></div></div><div class=container><div class="row blog-page-color"><div class="col-md-9 py-4 px-0"><div class="rounded shadow bg-light p-3 px-md-5 bg-light"><h1 class="pb-2 text-center">Tester ses scénarios utilisateur avec Testing-Library</h1><article><div class=paragraph><p>La mise en place de tests de logiciels est une pratique très répandue.
+Cela ajoute un meilleur niveau de qualité sur le code d’une application.</p></div><div class=paragraph><p>Choisir sa solution de tests peut être un exercice difficile. En effet,
+il existe de nombreux outils, frameworks, patterns permettant d’aborder
+ce sujet.</p></div><div class=paragraph><p>Dans cet article, nous étudierons <a href=https://testing-library.com/>Testing Library</a>, une bibliothèque
+permettant de réaliser des tests frontend du point de vue de
+l’utilisateur.</p></div><div class=sect1><h2 id=_la_diversité_de_lécosystème_frontend>La diversité de l’écosystème frontend</h2><div class=sectionbody><div class=paragraph><p>L’écosystème frontend évolue fréquemment. Les paradigmes changent (templating côté
+serveur, spa…), de nouveaux frameworks sortent (Angular, React, Vue
+JS…), de nouvelles librairies continuent d’apparaître…​</p></div><div class=paragraph><p>À ce jour, aucun des grands frameworks javascript n’a réussi à s’imposer
+comme standard de l’environnement frontend. Aussi, le code source d’une application
+Web peut fortement varier d’un projet à l’autre selon la stack choisie.</p></div><div class=paragraph><p>Qu’en est-il des tests ? Chaque framework propose au moins une librairie
+pour tester le rendu de ses composants. Nous pouvons citer Enzyme pour
+React, la solution native pour Angular, etc. Toutefois, ces tests
+souffrent souvent du même défaut, à savoir que leur code source est très
+lié au framework javascript utilisé.</p></div><div class=sect2><h3 id=_plusieurs_frameworks_plusieurs_manières_décrire_un_composant>Plusieurs frameworks, plusieurs manières d’écrire un composant</h3><div class=listingblock><div class=title>Exemple avec Angular</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>@Component({
+  selector: &#39;todo-list&#39;,
+  template: `
+    &lt;ul&gt;
+      &lt;li *ngFor=&#34;let todo of todos&#34;&gt;{{todo}}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;input #newTodo/&gt;
+    &lt;button (click)=&#34;addTodo(newTodo.value)&#34;&gt;Add&lt;/button&gt;
+  `
+})
+export class TodoListComponent {
+  todos = [];
+
+  addTodo(newTodo) {
+    this.todos.push(newTodo);
+  }
+}</code></pre></div></div><div class=listingblock><div class=title>Exemple avec React</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>export default function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const todoInput = useRef(null);
+
+  const addTodo = newTodo =&gt; setTodos([...todos, newTodo]);
+
+  return &lt;&gt;
+    &lt;ul&gt;
+      {todos.map((todo, i) =&gt; &lt;li key={i}&gt;{todo}&lt;/li&gt;)}
+    &lt;/ul&gt;
+    &lt;input ref={todoInput}/&gt;
+    &lt;button onClick={() =&gt; addTodo(todoInput.current.value)}&gt;Add&lt;/button&gt;
+  &lt;/&gt;;
+}</code></pre></div></div><div class=paragraph><p>Les deux codes sources sont très
+différents, bien que le résultat affiché dans le navigateur soit
+strictement identique.</p></div></div><div class=sect2><h3 id=_plusieurs_frameworks_plusieurs_manières_de_tester_un_composant>Plusieurs frameworks, plusieurs manières de tester un composant</h3><div class=listingblock><div class=title>Exemple avec Angular</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>describe(&#39;TodoListComponent&#39;, () =&gt; {
+  it(&#39;should add two todos&#39;, () =&gt; {
+    // Arrange
+    TestBed.configureTestingModule({declarations: [TodoListComponent]});
+    const fixture = TestBed.createComponent(TodoListComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeDefined();
+
+    const hostElement = fixture.nativeElement;
+    const button = hostElement.querySelector(&#39;button&#39;)
+    const input = hostElement.querySelector(&#39;input&#39;)!;
+
+    // Act
+    input.value = &#39;First&#39;;
+    input.dispatchEvent(new Event(&#39;change&#39;));
+    button.dispatchEvent(new Event(&#39;click&#39;));
+    input.value = &#39;Second&#39;;
+    input.dispatchEvent(new Event(&#39;change&#39;));
+    button.dispatchEvent(new Event(&#39;click&#39;));
+
+    fixture.detectChanges();
+
+    //Assert
+    expect(hostElement.querySelectorAll(&#39;li&#39;).item(0)!.textContent).toEqual(&#39;First&#39;);
+    expect(hostElement.querySelectorAll(&#39;li&#39;).item(1)!.textContent).toEqual(&#39;Second&#39;);
+  });
+});</code></pre></div></div><div class=listingblock><div class=title>Exemple avec Enzyme pour React</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>describe(&#39;TodoList&#39;, () =&gt; {
+  test(&#39;should add two todos&#39;, () =&gt; {
+    // Arrange
+    const wrapper = mount(&lt;TodoList/&gt;);
+
+    // Act
+    wrapper.find(&#39;input&#39;).instance().value = &#39;First&#39;;
+    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
+    wrapper.find(&#39;input&#39;).instance().value = &#39;Second&#39;;
+    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
+
+    //Assert
+    expect(wrapper.find(&#39;li&#39;)).toHaveLength(2);
+    expect(wrapper.find(&#39;li&#39;).at(0).text()).toBe(&#39;First&#39;);
+    expect(wrapper.find(&#39;li&#39;).at(1).text()).toBe(&#39;Second&#39;);
+  });
+});</code></pre></div></div><div class=paragraph><p>Les scénarios utilisateurs sont identiques, mais l’écriture des tests varie fortement d’un framework à l’autre.</p></div></div></div></div><div class=sect1><h2 id=_testing_library_à_la_rescousse>Testing Library à la rescousse</h2><div class=sectionbody><div class=paragraph><p>Testing library est une bibliothèque permettant de requêter et
+d’interagir avec un DOM. Cette librairie incite donc à rédiger des tests
+qui n’auront pas connaissance du détail d’implémentation des composants.</p></div><div class=paragraph><p>Testing library est fournie avec de nombreuses bibliothèques tierces
+qui facilitent l’intégration de son API dans les principaux
+frameworks (Angular, React, Vue JS…).</p></div><div class=sect2><h3 id=_utilisation_de_testing_library_avec_angular_et_react>Utilisation de Testing Library avec Angular et React</h3><div class=listingblock><div class=title>Exemple avec Angular</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>describe(&#39;TodoListComponent&#39;, () =&gt; {
+  test(&#39;should add two todos&#39;, async () =&gt; {
+    // Arrange
+    await render(TodoListComponent);
+
+    // Act
+    fireEvent.change(screen.getByRole(&#39;textbox&#39;), {target: {value: &#39;First&#39;}});
+    fireEvent.click(screen.getByRole(&#39;button&#39;));
+    fireEvent.change(screen.getByRole(&#39;textbox&#39;), {target: {value: &#39;Se-cond&#39;}});
+    fireEvent.click(screen.getByRole(&#39;button&#39;));
+
+    // Assert
+    expect(screen.getAllByRole(&#39;listitem&#39;)).toHaveLength(2);
+    expect(screen.getAllByRole(&#39;listitem&#39;)[0]).toHaveTextContent(&#39;First&#39;);
+    expect(screen.getAllByRole(&#39;listitem&#39;)[1]).toHaveTextContent(&#39;Second&#39;);
+  });
+});</code></pre></div></div><div class=listingblock><div class=title>Exemple avec React</div><div class=content><pre class=highlight><code class=language-javascript data-lang=javascript>describe(&#39;TodoList&#39;, () =&gt; {
+  test(&#39;should add two todos&#39;, () =&gt; {
+    // Arrange
+    render(&lt;TodoList /&gt;);
+
+    // Act
+    fireEvent.change(screen.getByRole(&#39;textbox&#39;), {target: {value: &#39;First&#39;}});
+    fireEvent.click(screen.getByRole(&#39;button&#39;));
+    fireEvent.change(screen.getByRole(&#39;textbox&#39;), {target: {value: &#39;Se-cond&#39;}});
+    fireEvent.click(screen.getByRole(&#39;button&#39;));
+
+    //Assert
+    expect(screen.getAllByRole(&#39;listitem&#39;)).toHaveLength(2);
+    expect(screen.getAllByRole(&#39;listitem&#39;)[0]).toHaveTextContent(&#39;First&#39;);
+    expect(screen.getAllByRole(&#39;listitem&#39;)[1]).toHaveTextContent(&#39;Second&#39;);
+  });
+});</code></pre></div></div><div class=paragraph><p>Hormis la création des composants, les deux
+tests sont strictement identiques. L’expérience utilisateur
+étant la même quel que soit le framework utilisé, il est normal que cela
+se constate au niveau des tests.</p></div></div><div class=sect2><h3 id=_les_principaux_types_de_requête>Les principaux types de requête</h3><div class=paragraph><p>Testing Library permet de requêter le DOM de plusieurs manières, via
+différents types de requête. Parmi les plus intéressantes, nous avons :</p></div><div class=ulist><ul><li><p><code>getByRole</code> : Requête des éléments selon leur représentation dans l’arbre
+d’accessibilité.</p></li><li><p><code>getByLabelText</code> : Requête des éléments en passant par leur label. Très
+utile pour tester des formulaires.</p></li><li><p><code>getByPlaceholderText</code> : Requête des éléments selon leur placeholder. Utile
+si on n’a pas de label.</p></li><li><p><code>getByText</code> : Retrouve un élément selon son texte affiché à l’écran. Utile
+pour requêter une div, span, etc.</p></li><li><p><code>getByDisplayValue</code> : Permet de récupérer des éléments de formulaire selon
+leur valeur.</p></li></ul></div><div class=paragraph><p>En dernier recours, il existe également la requête <code>getByTestId</code> qui
+récupère des éléments selon leur attribut test-id.</p></div><div class=paragraph><p>Il est possible de requêter des éléments de manière asynchrone en
+remplaçant le prefix <code>get</code> par le prefix <code>find</code>.</p></div></div><div class=sect2><h3 id=_testing_playground_un_excellent_plugin_de_navigateur>Testing Playground : un excellent plugin de navigateur</h3><div class=paragraph><p>Il existe un plugin navigateur qui retourne les requêtes correspondant à
+un élément donné. Les requêtes sont fournies par ordre de préconisation.</p></div><div class=paragraph><p>Le plugin est disponible aux adresses suivantes :</p></div><div class=ulist><ul><li><p>Chrome: <a href=https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano class=bare>https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano</a></p></li><li><p>Firefox: <a href=https://addons.mozilla.org/en-US/firefox/addon/testing-playground/ class=bare>https://addons.mozilla.org/en-US/firefox/addon/testing-playground/</a></p></li></ul></div></div><div class=sect2><h3 id=_tester_laccessibilité_de_son_application>Tester l’accessibilité de son application</h3><div class=paragraph><p>Testing Library permet de réaliser des
+tests qui simulent l’utilisation d’une interface d’accessibilité comme
+un lecteur d’écran. Les requêtes de types <code>roles</code>
+récupèrent les éléments du DOM via leurs rôles <a href=https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA>ARIA</a> correspondant.</p></div><div class=paragraph><p>La fonction <code>isInaccessible</code> détermine si un élément du DOM sera
+exclu de l’arbre d’accessibilité.</p></div></div><div class=sect2><h3 id=_utilitaire_pour_simuler_les_événements_utilisateur>Utilitaire pour simuler les événements utilisateur</h3><div class=paragraph><p>Lorsqu’on utilise une application dans un navigateur, de nombreux
+événements sont générés. Par exemple, si un utilisateur souhaite cliquer
+sur un bouton à l’aide de sa souris, les événements suivants
+seront lancés :</p></div><div class=ulist><ul><li><p><code>mouseOver</code></p></li><li><p><code>mouseMove</code></p></li><li><p><code>mouseDown</code></p></li><li><p><code>focus</code></p></li><li><p><code>mouseUp</code></p></li><li><p><code>click</code></p></li></ul></div><div class=paragraph><p>Pour rédiger un test similaire à ce qui se produit dans le navigateur,
+il faut générer toute cette suite d’événements. Pour nous simplifier
+la tâche, il existe une librairie satellite -
+<code>@testing-library/user-event</code> – qui fournit plusieurs cas classiques
+d’interactions entre l’utilisateur et le navigateur.</p></div><div class=paragraph><p>La précédente suite d’évènements serait générée en appelant simplement <code>userEvent.click</code>.</p></div></div></div></div><div class=sect1><h2 id=_conclusion>Conclusion</h2><div class=sectionbody><div class=paragraph><p>Comme nous avons pu le voir, les tests écrits avec Testing Library
+n’ont pas connaissance de l’implémentation des composants. Le découplage entre l’écriture
+des tests et l’implémentation des composants permet de facilement refactorer son code.</p></div><div class=paragraph><p>Ensuite, cette librairie invite à tester l’accessibilité de
+l’application, chose qui est, malheureusement, trop souvent négligée.</p></div><div class=paragraph><p>Je terminerai sur une remarque plus subjective. Je trouve qu’il est plus
+simple d’appliquer le TDD avec Testing Library. En effet, le
+comportement d’un composant est souvent bien anticipé, alors que son
+implémentation sera connue a posteriori. Il est donc pratique de
+commencer par rédiger un test qui répètera le scénario utilisateur bien
+identifié en amont.</p></div><hr><div class=paragraph><p><strong>Liens utiles :</strong></p></div><div class=ulist><ul><li><p><a href=https://testing-library.com/ class=bare>https://testing-library.com/</a></p></li><li><p><a href=https://github.com/testing-library class=bare>https://github.com/testing-library</a></p></li></ul></div></div></div></article></div></div><div class="col-md-3 py-4"><div class="bg-light shadow p-4 rounded mb-2 bg-light"><h4>Table of content</h4><nav id=TableOfContents></nav></div><div class="bg-light shadow p-4 rounded mt-2 bg-light"><h4>Share article with</h4><ul><li><a target=blank class=text-info href="https://twitter.com/share?text=Tester%20ses%20sc%c3%a9narios%20utilisateur%20avec%20Testing-Library&url=http%3a%2f%2fexample.org%2fposts%2f2021-10-13-testing-library%2f">Twitter</a></li><li><a target=blank class=text-success href="https://api.whatsapp.com/send?text=Tester%20ses%20sc%c3%a9narios%20utilisateur%20avec%20Testing-Library: http%3a%2f%2fexample.org%2fposts%2f2021-10-13-testing-library%2f" data-action=share/whatsapp/share>Whatsapp</a></li><li><a class=text-danger target=blank href="mailto:?subject=Tester%20ses%20sc%c3%a9narios%20utilisateur%20avec%20Testing-Library&body=Check out this site http%3a%2f%2fexample.org%2fposts%2f2021-10-13-testing-library%2f">Email</a></li></ul></div></div></div></div></section><footer><div class="news container py-3" data-aos=fade-up data-aos-easing=linear data-aos-once=true></div><div class="container bg-transparent py-4"><div class="row justify-content-center"><div class="col-md-4 text-center order-2 order-lg-1 order-md-1"><div class=pb-2><a href=http://example.org/><img alt="Footer logo" src=../../images/fav.png height=40px width=40px></a></div>&copy; 2023 All Rights Reserved<div>Made with &#10084; and
+<a href=https://github.com/gurusabarish/hugo-profile target=_blank>Hugo profile</a>
+| Designed and Developed by
+<a href=https://www.linkedin.com/in/gurusabarish/ target=_blank>Gurusabarish</a></div></div></div></div></footer><script>$(function(){$('[data-toggle="tooltip"]').tooltip()})</script><script>$(".darkmode-label").click(function(){$("body").toggleClass("darkmode"),$(".fa-moon").toggleClass("d-none"),$(".fa-sun").toggleClass("d-none"),$("nav").toggleClass("navbar-dark"),$("nav").toggleClass("navbar-light"),$(".text-dark").addClass("darkmode-text-dark").removeClass("text-dark"),$(".text-muted").addClass("darkmode-text-muted").removeClass("text-muted"),$("input.custom-control-input").is(":checked")&&($(".darkmode-text-dark").addClass("text-dark").removeClass("darkmode-text-dark"),$(".darkmode-text-muted").addClass("text-muted").removeClass("darkmode-text-muted"))}),$("input.custom-control-input").is(":checked")&&($("body").toggleClass("darkmode"),$(".fa-moon").addClass("d-none"),$(".fa-sun").removeClass("d-none"),$("nav").toggleClass("navbar-dark"),$("nav").toggleClass("navbar-light"),$(".text-dark").addClass("darkmode-text-dark").removeClass("text-dark"),$(".text-muted").addClass("darkmode-text-muted").removeClass("text-muted"))</script></body></html>
