@@ -1,6 +1,6 @@
 baseURL: 'http://example.org/'
 languageCode: 'en-us'
-title: 'My New Hugo Site'
+title: 'Bertrand Nau | Fullstack Developer / DevOps'
 theme: 'hugo-profile'
 relativeURLs: true
 
@@ -32,22 +32,17 @@ params:
   # home
   disable_home: false
   profile_image: "/images/profile.png"
-  name: "Example name"
+  name: "Bertrand Nau"
   namecolor: ffc107
-  profession: "Profession"
-  github: "https://github.com"
-  gitlab: "https://gitlab.com"
-  linkedin: "https://linkedin.com"
-  twitter: "https://twitter.com/"
-  instagram: "https://instagram.com/"
-  facebook: "https://facebook.com"
+  profession: "Fullstack Developer / DevOps"
+  github: "https://github.com/bnau"
+  linkedin: "https://linkedin.com/in/bertrand-nau"
+  twitter: "https://twitter.com/bertrand_nau"
 
   # Custom social links
   customSocialLinks:
-    - imageURL: "https://hugo-profile.netlify.app/images/fav.png"
-      url: "https://gohugo.com"
     - fontAwesomeIconName: "fa fa-envelope"
-      url: "https://gmail.com"
+      url: "mailto:naubertrand@gmail.com"
 
   # About
   disable_about: false
@@ -66,49 +61,103 @@ params:
   # Experience
   disable_experience: false
   experience:
-    - company: "Google"
-      # id: "google-developer"   // use this, when you want to change the id(used for navigation)
-      role: "Software developer"
-      startdate: Feb 2021
-      enddate: present
+    - company: "Takima"
+      role: "Senior Fullstack Developer"
+      startdate: January 2020
+      enddate: April 2020
       featuredpoints:
-        - point: Lead backend developer for a product.
-        - point: Created a frontend design for a product.
-    - company: "Facebook"
-      # id: "facebook-developer" // use this, when you want to change the id(used for navigation)
-      role: "Fullstack developer"
-      startdate: Mar 2020
-      enddate: Dec 2020
+        - point: Development of Deadlock, one of the most promising internal projects of the company
+        - point: Code Reviews
+        - point: Establishment of the frontend tests
+        - point: Teaching and writing materials for a two months training course on advanced programming techniques
+        - point: Interviewing of graduate Developers
+      stack:
+        - lang: Java
+        - lang: Spring Boot
+        - lang: Kotlin
+        - lang: Rust
+        - lang: React
+        - lang: Kubernetes
+        - lang: GCP
+        - lang: Gitlab CI
+    - company: "KleeGroup"
+      role: "Fullstack Developer"
+      startdate: October 2014
+      enddate: November 2019
       featuredpoints:
-        - point: Lead backend developer for a product.
-        - point: Created a frontend design for a product.
-    - company: "Amazon"
-      # id: "amazon-developer" // use this, when you want to change the id(used for navigation)
-      role: "Fullstack developer"
-      startdate: Feb 2019
-      enddate: Jan 2020
+        - point: Technical work on multiple Web Business Applications
+        - point: Leading Developers Teams - up to 4 people
+        - point: Coaching of Junior Developers
+        - point: Architectural Documents Writing
+        - point: Integration of new technologies in the Company (Python, Gradle)
+        - point: Contribution to Internal Frameworks
+      stack:
+        - lang: Java
+        - lang: J2EE
+        - lang: Spring
+        - lang: Python
+        - lang: Javascript
+        - lang: Typescript
+        - lang: Angular
+        - lang: React
+        - lang: PostgreSQL
+        - lang: MySQL
+        - lang: Oracle
+        - lang: Jenkins
+        - lang: ElasticSearch
+      # Ajouter les missions
+    - company: "Renault"
+      role: "Intern"
+      startdate: March 2014
+      enddate: September 2014
       featuredpoints:
-        - point: Lead backend developer for a product.
-        - point: Created a frontend design for a product.
+        - point: Conception and realization of a web application demonstrator for the calculation of quality indicators.
+        - point: Studies of the client's needs and the possible solutions.
+      stack:
+        - lang: Java
+        - lang: J2EE
+        - lang: JBoss
+        - lang: Oracle
+    - company: "Endress+Hauser"
+      id: "endress"
+      role: "Intern"
+      startdate: May 2013
+      enddate: September 2013
+      featuredpoints:
+        - point: Conception and realization of a fieldbus communications analyzer.
+        - point: Study of the communication frames.
+        - point: Analysis of the architecture of the application.
+      stack:
+        - lang: C#
+    - company: "Areva"
+      role: "Intern"
+      startdate: May 2012
+      enddate: August 2012
+      featuredpoints:
+        - point: Development of a graphical user interface to realize sustainability studies.
+      stack:
+        - lang: VBA
+        - lang: Access
+    - company: "D3E Electronique"
+      id: "d3e"
+      role: "Intern"
+      startdate: May 2011
+      enddate: August 2011
+      featuredpoints:
+        - point: Development of an intranet website to computerize the customer's followed up.
+      stack:
+        - lang: PHP
+        - lang: MySQL
+        - lang: Apache
 
   # Education
   disable_education: false
   education:
-    - degree: "B.tech"
+    - degree: "Engineer's degree"
       branch: "Information Technology"
-      university: "Example university"
-      startedyear: "2013"
-      graduation: "2018"
-    - degree: "Degree"
-      branch: "Branch"
-      university: "Example university"
-      startedyear: "year"
-      graduation: "year"
-    - degree: "Degree"
-      branch: "Branch"
-      university: "Example university"
-      startedyear: "year"
-      graduation: "year"
+      university: "École des Mines de Douai"
+      startedyear: "2010"
+      graduation: "2014"
 
   # Projects
   disable_projects: false
@@ -136,3 +185,14 @@ params:
     - title: Competition winner
       description: We are developed a product which can help others.
       img: /images/achiv.jpg
+
+  disable_contact: true
+
+security:
+  exec:
+    allow:
+      - ^dart-sass-embedded$
+      - ^go$
+      - ^npx$
+      - ^postcss$
+      - ^asciidoctor$
