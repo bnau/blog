@@ -46,109 +46,287 @@ params:
 
   # About
   disable_about: false
-  descripe_l1_person: "Hi, I'm Profile, a passionate web developer. I tend to make use of modern web technologies to build websites that looks great, feels fantastic, and functions correctly."
-  descripe_l2_person: "This is a example template for about section. You can find my works [here](#projects)"
+  descripe_l1_person: "With almost 10 years of professional experience in software development, 
+  I have been acquiring skills in many languages and technologies. I enjoy discovering, sharing my knowledge and 
+  spreading my dynamism. In hope to join a team with the same mindset, I'm looking for a new high technical challenge"
   skills:
-    - name: CSS
-      percentage: 90
-    - name: Django
-      percentage: 85
-    - name: Hugo
-      percentage: 80
-    - name: React JS
-      percentage: 70
+    - category: backend
+      skills:
+        - name: Java, Kotlin (Spring Boot, J2EE)
+          percentage:
+        - name: Node JS (Express JS, Nest JS)
+          percentage:
+        - name: Rust
+          percentage:
+        - name: Python
+          percentage:
+        - name: Go
+          percentage:
+        - name: Solidity
+          percentage:
+        - name: .Net
+          percentage:
+        - name: PHP
+          percentage:
+        - name: C++
+          percentage:
+    - category: frontend
+      skills:
+        - name: Typescript
+          percentage:
+        - name: Angular (NgRx, Angular Material UI)
+          percentage:
+        - name: React (Redux, Ant Design, Remix)
+          percentage:
+        - name: Vue (Nuxt)
+          percentage:
+        - name: Tailwind CSS
+          percentage:
+    - category: Data
+      skills:
+        - name: PostgreSQL
+          percentage:
+        - name: MySQL
+          percentage:
+        - name: Oracle
+          percentage:
+        - name: MongoDB
+          percentage:
+        - name: ElasticSearch
+          percentage:
+        - name: Spark
+          percentage:
+        - name: Kafka
+          percentage:
+    - category: CI/CD
+      skills:
+        - name: Azure DevOps
+          percentage:
+        - name: Gitlab CI
+          percentage:
+        - name: Jenkins
+          percentage:
+        - name: Github Actions
+          percentage:
+    - category: DevOps
+      skills:
+        - name: Docker
+          percentage:
+        - name: Kubernetes
+          percentage:
+        - name: Skaffold
+          percentage:
+        - name: Argo CD
+          percentage:
+        - name: Ansible
+          percentage:
+    - category: Cloud
+      skills:
+        - name: AWS
+          percentage:
+        - name: GCP
+          percentage:
+    - category: ML
+      skills:
+        - name: ML Flow
+          percentage:
+        - name: Tensorflow
+          percentage:
+        - name: Rasa Chatbot
+          percentage:
+    - category: Miscellaneous
+      skills:
+        - name: Terraform
+          percentage:
+        - name: Keycloak
+          percentage:
+        - name: Sonar
+          percentage:
+        - name: Checkov
+          percentage:
+    - category: Methodologies
+      skills:
+        - name: Scrum
+          percentage:
+        - name: Kanban
+          percentage:
 
   # Experience
   disable_experience: false
   experience:
+    - company: "Talan Labs"
+      id: "talan"
+      role: "Senior Fullstack Developer"
+      startdate: November 2020
+      enddate: Present
+      featuredpoints:
+        - Member of the management team.
+        - Animation of internal talks / hands-on labs (Kotlin, Java 17, AWS, Terraform...).
+        - Writing of multiple day training courses.
+        - Contribution to internal projects.
+      missions:
+        - company: "CMA CGM"
+          startdate: May 2022
+          enddate: Present
+          featuredpoints:
+            - Development of a software optimizing the assignments of the company's vessels.
+            - Leading a team of 4 developers.
+            - Start up of the project.
+            - Design of the architecture (application stack, CI/CD, infrastructure, cloud building).
+          stack:
+            - Typescript
+            - Node JS
+            - Python
+            - React
+            - Tailwind CSS
+            - Kubernetes
+            - AWS
+            - Terraform
+            - Spark
+        - company: "FuturMaster"
+          startdate: December 2020
+          enddate: April 2022
+          featuredpoints:
+            - Assigned to the R&D team of a software publisher specialized in the supply chain.
+            - Migration of the product from a desktop to a web application.
+            - Micro-service and micro-frontend architecture.
+          stack:
+            - Java
+            - Spring Boot
+            - Eureka
+            - React
+            - Lerna
+            - Ant Design
+            - Testing Library
+            - MongoDB
+            - Docker
+            - Azure DevOps
     - company: "Takima"
       role: "Senior Fullstack Developer"
       startdate: January 2020
       enddate: April 2020
       featuredpoints:
-        - point: Development of Deadlock, one of the most promising internal projects of the company
-        - point: Code Reviews
-        - point: Establishment of the frontend tests
-        - point: Teaching and writing materials for a two months training course on advanced programming techniques
-        - point: Interviewing of graduate Developers
+        - Development of a coding game applications
+        - Establishment of the frontend tests
+        - Teaching and writing materials for a two months training course on Java, Angular and DevOps techniques
+        - Interviewing of graduate Developers
       stack:
-        - lang: Java
-        - lang: Spring Boot
-        - lang: Kotlin
-        - lang: Rust
-        - lang: React
-        - lang: Kubernetes
-        - lang: GCP
-        - lang: Gitlab CI
+        - Java
+        - Spring Boot
+        - Kotlin
+        - Rust
+        - Angular
+        - React
+        - Kubernetes
+        - GCP
+        - Gitlab CI
     - company: "KleeGroup"
       role: "Fullstack Developer"
       startdate: October 2014
       enddate: November 2019
       featuredpoints:
-        - point: Technical work on multiple Web Business Applications
-        - point: Leading Developers Teams - up to 4 people
-        - point: Coaching of Junior Developers
-        - point: Architectural Documents Writing
-        - point: Integration of new technologies in the Company (Python, Gradle)
-        - point: Contribution to Internal Frameworks
-      stack:
-        - lang: Java
-        - lang: J2EE
-        - lang: Spring
-        - lang: Python
-        - lang: Javascript
-        - lang: Typescript
-        - lang: Angular
-        - lang: React
-        - lang: PostgreSQL
-        - lang: MySQL
-        - lang: Oracle
-        - lang: Jenkins
-        - lang: ElasticSearch
+        - Technical work on multiple Web Business Applications
+        - Leading Developers Teams - up to 4 people
+        - Coaching of Junior Developers
+        - Architectural Documents Writing
+        - Integration of new technologies in the Company (Python, Gradle)
+        - Contribution to Internal Frameworks
+      missions:
+        - company: "Ministère de l’Intérieur"
+          featuredpoints:
+            - Application for managing the national fleet of mobile radars
+            - Improving the technical environment of a distributed project (about 15 developers, 5 teams)
+            - Establishment of API Key and E2E tests
+            - Versioning of Rest APIs
+            - Developing a transversal frontend library
+            - Reduction of the technical debt
+          stack:
+            - Java / J2EE
+            - Struts
+            - PostgreSQL
+            - Keycloak
+        - company: "Santé Publique France, SI de gestion de patients nécessitant une FIV"
+          featuredpoints:
+            - Application for the follow-up of patients needing an IFV
+            - Complete redesign from J2EE to Spring Boot / Angular
+            - Leading the developers Team
+            - Establishment of Code Reviews inside the team
+          stack:
+            - Java / Spring Boot
+            - TypeScript / Angular
+            - Oracle
+        - company: "Ministère du travail"
+          featuredpoints:
+            - Development of a professional certification management application
+            - Implementation of a CI/CD pipeline with Jenkins
+            - Contribution to the component library of the company
+          stack:
+            - Java
+            - React
+            - PostgreSQL
+            - ElasticSearch
+        - company: "Ministère du travail"
+          featuredpoints:
+            - Rewriting cartographic algorithms from ArcGis to PostGis
+          stack:
+            - Python
+            - ArcGis
+            - PostGis
+        - company: "Ministère des finances"
+          featuredpoints:
+            - Document archiving application
+            - Optimisation of SQL queries
+            - Data recovery
+            - Integration and configuration of a Cas SSO
+          stack:
+            - Java / J2EE
+            - Struts
+            - PostgreSQL
+            - Lucene
       # Ajouter les missions
     - company: "Renault"
       role: "Intern"
       startdate: March 2014
       enddate: September 2014
       featuredpoints:
-        - point: Conception and realization of a web application demonstrator for the calculation of quality indicators.
-        - point: Studies of the client's needs and the possible solutions.
+        - Conception and realization of a web application demonstrator for the calculation of quality indicators.
+        - Studies of the client's needs and the possible solutions.
       stack:
-        - lang: Java
-        - lang: J2EE
-        - lang: JBoss
-        - lang: Oracle
+        - Java
+        - J2EE
+        - JBoss
+        - Oracle
     - company: "Endress+Hauser"
       id: "endress"
       role: "Intern"
       startdate: May 2013
       enddate: September 2013
       featuredpoints:
-        - point: Conception and realization of a fieldbus communications analyzer.
-        - point: Study of the communication frames.
-        - point: Analysis of the architecture of the application.
+        - Conception and realization of a fieldbus communications analyzer.
+        - Study of the communication frames.
+        - Analysis of the architecture of the application.
       stack:
-        - lang: C#
+        - C#
     - company: "Areva"
       role: "Intern"
       startdate: May 2012
       enddate: August 2012
       featuredpoints:
-        - point: Development of a graphical user interface to realize sustainability studies.
+        - Development of a graphical user interface to realize sustainability studies.
       stack:
-        - lang: VBA
-        - lang: Access
+        - VBA
+        - Access
     - company: "D3E Electronique"
       id: "d3e"
       role: "Intern"
       startdate: May 2011
       enddate: August 2011
       featuredpoints:
-        - point: Development of an intranet website to computerize the customer's followed up.
+        - Development of an intranet website to computerize the customer's followed up.
       stack:
-        - lang: PHP
-        - lang: MySQL
-        - lang: Apache
+        - PHP
+        - MySQL
+        - Apache
 
   # Education
   disable_education: false
@@ -162,29 +340,31 @@ params:
   # Projects
   disable_projects: false
   projects:
-    - name: "Example project without details"
-      img: /images/project.jpg
-      githublink: "https://github.com/"
-      featuredlink: "/"
-      description: "Description of project"
+    - description: "Creation of my own home automation engine from scratch"
+      stack: Rasa Chatbot, Vosk, Nest JS, Ansible, PCB Design
+    - description: "SaaS application for independent headhunters"
+      stack: Kotlin, Angular, Kubernetes, AWS
+    - description: "Hardware / Interface customization (mouse, keyboard)"
+      stack: Arduino, C++, Rust
 
   # Achievements
   disable_achievements: false
   achievements:
-    - title: Competition winner
-      description: We are developed a product which can help others.
+    - title: AWS Certified Solutions Architect – Associate
+      issuer: AWS
+      date: February 2022
       img: /images/achiv.jpg
-      url: https://example.com
-    - title: Competition winner
-      description: We are developed a product which can help others.
+      url: https://www.credly.com/badges/1f33cb9b-df94-472c-851a-6fd3c0a3600c/public_url
+    - title: Oracle Certified Associate, Java SE 8 Programmer
+      issuer: Oracle
+      date: March 2019
       img: /images/achiv.jpg
-      # url: https://example.com
-    - title: Competition winner
-      description: We are developed a product which can help others.
+      url: https://www.credly.com/badges/b69d08ce-2c0c-438d-9781-8f89fcb21758/public_url
+    - title: Data Scientist with Python Track
+      issuer: DataCamp
+      date: June 2018
       img: /images/achiv.jpg
-    - title: Competition winner
-      description: We are developed a product which can help others.
-      img: /images/achiv.jpg
+      url: https://www.datacamp.com/statement-of-accomplishment/track/c208cd25bfcaf7c15938db14d6351828c46b8f05
 
   disable_contact: true
 

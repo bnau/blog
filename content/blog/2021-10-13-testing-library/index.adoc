@@ -1,14 +1,10 @@
 ---
 title: "Tester ses scénarios utilisateur avec Testing-Library"
 date: 2021-10-14T14:35:06+02:00
-slug: "/2021-10-13-testing-library"
 author: "bertrand-nau"
 tags: ["test","angular","react","testing-library"]
-labs: ["Lab 9"]
+image: "/blog/2021-10-13-testing-library/cover.jpg"
 ---
-
-:figure-caption!:
-:imagesdir: ./
 
 La mise en place de tests de logiciels est une pratique très répandue.
 Cela ajoute un meilleur niveau de qualité sur le code d’une application.
