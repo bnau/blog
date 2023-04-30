@@ -120,6 +120,8 @@ params:
           percentage:
         - name: Ansible
           percentage:
+        - name: Terraform
+          percentage:
     - category: Cloud
       skills:
         - name: AWS
@@ -136,13 +138,9 @@ params:
           percentage:
     - category: Miscellaneous
       skills:
-        - name: Terraform
-          percentage:
         - name: Keycloak
           percentage:
         - name: Sonar
-          percentage:
-        - name: Checkov
           percentage:
     - category: Methodologies
       skills:
@@ -156,7 +154,7 @@ params:
   experience:
     - company: "Talan Labs"
       id: "talan"
-      role: "Senior Fullstack Developer"
+      role: "Tech Lead"
       startdate: November 2020
       enddate: Present
       featuredpoints:
@@ -245,7 +243,7 @@ params:
             - Struts
             - PostgreSQL
             - Keycloak
-        - company: "Santé Publique France, SI de gestion de patients nécessitant une FIV"
+        - company: "Santé Publique France"
           featuredpoints:
             - Application for the follow-up of patients needing an IFV
             - Complete redesign from J2EE to Spring Boot / Angular
