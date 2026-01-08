@@ -1,5 +1,5 @@
 ---
-title: 'Third post'
+title: 'Troisième article'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Jul 22 2022'
 ---

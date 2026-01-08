@@ -16,7 +16,7 @@ const posts = allPosts.sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
@@ -86,7 +86,7 @@ const posts = allPosts.sort(
 		<Header />
 		<main>
 			<section class="hero">
-				<h1>Welcome to {SITE_TITLE}</h1>
+				<h1>Bienvenue sur {SITE_TITLE}</h1>
 				<p>{SITE_DESCRIPTION}</p>
 				<div class="social-section">
 					<SocialLinks {...SOCIAL_PROFILES} />
@@ -94,7 +94,7 @@ const posts = allPosts.sort(
 			</section>
 
 			<section class="recent-posts">
-				<h2>Recent Articles</h2>
+				<h2>Articles récents</h2>
 				<div class="post-list">
 					{posts.map((post) => (
 						<article class="post-item">
