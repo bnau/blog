@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  email?: string;
+  github?: string;
+  linkedin?: string;
+  bluesky?: string;
+  size?: number;
+}
+
+const {
+  email,
+  github,
+  linkedin,
+  bluesky,
+  size = 32
+} = Astro.props;
+---
+
+<div class="social-links">
+  <a href={`mailto:${email}`} title="Email" aria-label="Send an email">
+    <Icon name="mdi:email" size={size} />
+  </a>
+  <a href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="Visit GitHub profile">
+    <Icon name="mdi:github" size={size} />
+  </a>
+  <a href={`https://www.linkedin.com/in/${linkedin}`} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="Visit LinkedIn profile">
+    <Icon name="mdi:linkedin" size={size} />
+  </a>
+  <a href={`https://bsky.app/profile/${bluesky}`} target="_blank" rel="noopener noreferrer" title="Bluesky" aria-label="Visit Bluesky profile">
+    <Icon name="simple-icons:bluesky" size={size} />
+  </a>
+</div>
+
+<style>
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .social-links a {
+    color: var(--gray-dark);
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+
+  .social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 720px) {
+    .social-links {
+      gap: 0.75rem;
+    }
+  }
+</style>

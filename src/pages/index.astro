@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_PROFILES } from '../consts';
+
+// Get recent blog posts
+const allPosts = await getCollection('blog');
+
+const posts = allPosts.sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).slice(0, 5);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 960px;
+			}
+			.hero {
+				text-align: center;
+				padding: 3rem 0;
+			}
+			.hero h1 {
+				font-size: 3rem;
+				margin-bottom: 0.5rem;
+			}
+			.hero p {
+				font-size: 1.25rem;
+				color: rgb(var(--gray));
+				margin-bottom: 2rem;
+			}
+			.social-section {
+				display: flex;
+				justify-content: center;
+				margin: 2rem 0;
+			}
+			.recent-posts {
+				margin-top: 3rem;
+			}
+			.recent-posts h2 {
+				font-size: 2rem;
+				margin-bottom: 1.5rem;
+			}
+			.post-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+			.post-item {
+				padding: 1.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				transition: box-shadow 0.2s ease, transform 0.2s ease;
+			}
+			.post-item:hover {
+				box-shadow: 0 4px 12px rgba(var(--black), 10%);
+				transform: translateY(-2px);
+			}
+			.post-item a {
+				text-decoration: none;
+				color: inherit;
+			}
+			.post-item h3 {
+				margin: 0 0 0.5rem 0;
+				color: rgb(var(--black));
+			}
+			.post-item .date {
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+				margin-bottom: 0.5rem;
+			}
+			.post-item .description {
+				color: rgb(var(--gray-dark));
+				line-height: 1.6;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>Welcome to {SITE_TITLE}</h1>
+				<p>{SITE_DESCRIPTION}</p>
+				<div class="social-section">
+					<SocialLinks {...SOCIAL_PROFILES} />
+				</div>
+			</section>
+
+			<section class="recent-posts">
+				<h2>Recent Articles</h2>
+				<div class="post-list">
+					{posts.map((post) => (
+						<article class="post-item">
+							<a href={`/blog/${post.id}`}>
+								<div class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<h3>{post.data.title}</h3>
+								<p class="description">{post.data.description}</p>
+							</a>
+						</article>
+					))}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
