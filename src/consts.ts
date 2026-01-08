@@ -1,9 +1,9 @@
-export const SITE_TITLE = 'Blog Technique';
-export const SITE_DESCRIPTION = 'Une collection d\'articles techniques et d\'analyses';
+export const SITE_TITLE = 'Blog de Bertrand Nau';
+export const SITE_DESCRIPTION = 'Blog professionnel de Bertrand Nau';
 
 export const SOCIAL_PROFILES = {
-  email: 'your.email@example.com',
-  github: 'yourusername',
-  linkedin: 'yourprofile',
-  bluesky: 'yourhandle.bsky.social',
+  email: 'naubertrand@gmail.com',
+  github: 'bnau',
+  linkedin: 'bertrand-nau',
+  bluesky: 'bertrandnau.bsky.social',
 };
