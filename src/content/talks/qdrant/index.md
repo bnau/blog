@@ -2,7 +2,7 @@
 title: "Démystifions les bases de données vectorielles avec Qdrant"
 conferences:
   - name: "Sunny Tech 2025"
-    date: "2024-06-26"
+    date: "2025-06-26"
     replayLink: "https://youtu.be/GiyRhM-cSbo?si=KplOtfFnZ4MD1096"
   - name: "Devoxx France 2025"
     date: "2025-04-24"
