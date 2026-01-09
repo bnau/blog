@@ -4,6 +4,7 @@ import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
 
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://bnau.github.io',
+	base: '/blog',
 	integrations: [mdx(), sitemap(), icon()],
 });
