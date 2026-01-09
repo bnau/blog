@@ -36,7 +36,7 @@ export async function GET(context: APIContext) {
           width="${post.data.cover.width}"
           height="${post.data.cover.height}"
           medium="image"
-          url="${`/blog/${post.id}/${post.data.cover.src}`}" />`
+          url="${`${baseUrl}/${post.data.cover.src}`}" />`
       }
     }),
     customData: `<language>fr</language>`,
