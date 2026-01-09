@@ -6,6 +6,7 @@ import Header from '../components/Header.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_PROFILES } from '../consts';
+import { date } from 'astro:schema';
 
 // Get recent blog posts
 const allPosts = await getCollection('blog');
