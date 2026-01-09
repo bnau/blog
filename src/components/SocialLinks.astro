@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
   email?: string;
@@ -9,27 +9,47 @@ interface Props {
   size?: number;
 }
 
-const {
-  email,
-  github,
-  linkedin,
-  bluesky,
-  size = 32
-} = Astro.props;
+const { email, github, linkedin, bluesky, size = 32 } = Astro.props;
 ---
 
 <div class="social-links">
   <a href={`mailto:${email}`} title="Email" aria-label="Send an email">
     <Icon name="mdi:email" size={size} />
   </a>
-  <a href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="Visit GitHub profile">
+  <a
+    href={`https://github.com/${github}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    title="GitHub"
+    aria-label="Visit GitHub profile"
+  >
     <Icon name="mdi:github" size={size} />
   </a>
-  <a href={`https://www.linkedin.com/in/${linkedin}`} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="Visit LinkedIn profile">
+  <a
+    href={`https://www.linkedin.com/in/${linkedin}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    title="LinkedIn"
+    aria-label="Visit LinkedIn profile"
+  >
     <Icon name="mdi:linkedin" size={size} />
   </a>
-  <a href={`https://bsky.app/profile/${bluesky}`} target="_blank" rel="noopener noreferrer" title="Bluesky" aria-label="Visit Bluesky profile">
+  <a
+    href={`https://bsky.app/profile/${bluesky}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Bluesky"
+    aria-label="Visit Bluesky profile"
+  >
     <Icon name="simple-icons:bluesky" size={size} />
+  </a>
+  <a
+    href="/rss.xml"
+    class="rss-link"
+    title="Flux RSS"
+    aria-label="S'abonner au flux RSS"
+  >
+    <Icon name="mdi:rss" size={size} />
   </a>
 </div>
 
@@ -42,7 +62,9 @@ const {
 
   .social-links a {
     color: var(--gray-dark);
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
     display: flex;
     align-items: center;
   }

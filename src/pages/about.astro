@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import profileImage from '../assets/profile.jpeg';
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={`À propos | ${SITE_TITLE}`} description="En savoir plus sur Bertrand Nau et son parcours professionnel" />
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 3rem 1rem;
+			}
+			.about-header {
+				text-align: center;
+				margin-bottom: 3rem;
+			}
+			.profile-image {
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				object-fit: cover;
+				margin-bottom: 2rem;
+				border: 4px solid rgb(var(--accent));
+			}
+			.about-header h1 {
+				font-size: 2.5rem;
+				margin-bottom: 0.5rem;
+			}
+			.about-content {
+				max-width: 720px;
+				margin: 0 auto;
+				line-height: 1.8;
+				color: rgb(var(--gray-dark));
+			}
+			.about-content h2 {
+				font-size: 1.8rem;
+				margin-top: 2.5rem;
+				margin-bottom: 1rem;
+				color: rgb(var(--black));
+			}
+			.about-content p {
+				margin-bottom: 1.5rem;
+			}
+			.about-content ul {
+				margin-bottom: 1.5rem;
+				padding-left: 2rem;
+			}
+			.about-content li {
+				margin-bottom: 0.5rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="about-header">
+				<Image
+					src={profileImage}
+					alt="Photo de profil de Bertrand Nau"
+					class="profile-image"
+					width={200}
+					height={200}
+				/>
+				<h1>À propos</h1>
+			</div>
+
+			<div class="about-content">
+				<h2>Qui suis-je ?</h2>
+				<p>
+					Dans l'IT depuis 2014, j'ai un profil très polyvalent. Après plusieurs années de développement d'applications dans des langages variés (kudos à Kotlin et Rust), je me suis progressivement diversifié dans l'infrastructure Cloud et les technologies DevOps. J'ai aussi pu animer une communauté de pratique dédiée à l'IA pour inviter mes collègues à s'approprier le sujet.
+				</p>
+				<p>
+                    Passionné par la technique, très touche à tout, j'ai toujours soif d'apprendre et de partager sur des nouveaux sujets.
+				</p>
+
+				<h2>Me contacter</h2>
+				<p>
+					N'hésitez pas à me contacter via les réseaux sociaux ou par mail.
+					Les liens sont disponibles dans le header !
+				</p>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

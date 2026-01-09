@@ -8,18 +8,6 @@ const today = new Date();
 
 <footer>
 	<p>&copy; {today.getFullYear()} Bertrand Nau. Tous droits réservés.</p>
-	<div class="footer-links">
-		<SocialLinks
-			email={SOCIAL_PROFILES.email}
-			github={SOCIAL_PROFILES.github}
-			linkedin={SOCIAL_PROFILES.linkedin}
-			bluesky={SOCIAL_PROFILES.bluesky}
-			size={28}
-		/>
-		<a href="/rss.xml" class="rss-link" title="Flux RSS" aria-label="S'abonner au flux RSS">
-			<Icon name="mdi:rss" size={28} />
-		</a>
-	</div>
 </footer>
 <style>
 	footer {
