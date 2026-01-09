@@ -23,7 +23,7 @@ This command checks all blog posts in `src/content/blog/` to ensure they:
 2. For each file, check:
    - Has frontmatter delimiters (---)
    - Contains required fields: `title`, `description`, `pubDate`
-   - Optional fields are properly formatted: `updatedDate`, `heroImage`
+   - Optional fields are properly formatted: `updatedDate`, `cover`
    - pubDate is a valid date format
    - If updatedDate exists, it's after or equal to pubDate
 

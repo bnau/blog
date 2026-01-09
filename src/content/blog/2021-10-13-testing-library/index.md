@@ -2,7 +2,7 @@
 title: "Tester ses scénarios utilisateur avec Testing-Library"
 description: "Une bibliothèque permettant de réaliser des tests frontend du point de vue de l'utilisateur"
 pubDate: "Oct 13 2021"
-heroImage: "cover.jpg"
+cover: "cover.jpg"
 ---
 
 La mise en place de tests de logiciels est une pratique très répandue.

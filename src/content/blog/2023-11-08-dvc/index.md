@@ -2,7 +2,7 @@
 title: "Une architecture GitOps pour vos projets ML avec DVC"
 description: "Un outil de gestion de versions, enrichissant Git, pensé pour le Machine Learning"
 pubDate: "Nov 08 2023"
-heroImage: "cover.png"
+cover: "cover.png"
 ---
 
 La méthodologie GitOps consiste à n'avoir qu'une seule source de vérité centralisée dans un repository Git. 

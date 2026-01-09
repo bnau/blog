@@ -37,7 +37,7 @@ The blog uses Astro's **Content Collections API v5** with a file-based loader pa
   description: string,
   pubDate: Date,
   updatedDate?: Date,
-  heroImage?: ImageMetadata
+  cover?: ImageMetadata
 }
 ```
 
@@ -93,7 +93,7 @@ title: 'Your Title'
 description: 'Brief description'
 pubDate: '2026-01-08'
 updatedDate: '2026-01-09'  # optional
-heroImage: ./images/hero.jpg  # optional, relative to file
+cover: ./images/hero.jpg  # optional, relative to file
 ---
 
 Your content here...
