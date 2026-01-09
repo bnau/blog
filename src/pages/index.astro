@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -7,13 +8,35 @@ import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import profileImage from '../assets/profile.jpeg';
+import { getLastConferenceDate, getLastConferenceWithReplay }from '../utils/talks'
 
-// Get recent blog posts
+// Union type for mixed content
+type ContentItem =
+	| { type: 'post'; data: CollectionEntry<'blog'>; sortDate: Date }
+	| { type: 'talk'; data: CollectionEntry<'talks'>; sortDate: Date, lastConference: {name: string, replayLink?: string} };
+
+// Get both collections
 const allPosts = await getCollection('blog');
+const allTalks = await getCollection('talks');
 
-const posts = allPosts.sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).slice(0, 5);
+// Transform to union type with discriminator
+const posts: ContentItem[] = allPosts.map(post => ({
+	type: 'post' as const,
+	data: post,
+	sortDate: post.data.pubDate,
+}));
+
+const talks: ContentItem[] = allTalks.map(talk => ({
+	type: 'talk' as const,
+	data: talk,
+	sortDate: getLastConferenceDate(talk),
+	lastConference: getLastConferenceWithReplay(talk)
+}));
+
+// Merge and sort
+const recentContent = [...posts, ...talks]
+	.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf())
+	.slice(0, 5);
 ---
 
 <!doctype html>
@@ -79,6 +102,25 @@ const posts = allPosts.sort(
 				color: rgb(var(--gray));
 				font-size: 0.9rem;
 				margin-bottom: 0.5rem;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+			.badge {
+				display: inline-block;
+				padding: 0.15rem 0.5rem;
+				border-radius: 4px;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+			.badge-post {
+				background: rgba(var(--accent), 0.1);
+				color: rgb(var(--accent));
+			}
+			.badge-talk {
+				background: rgba(129, 140, 248, 0.1);
+				color: rgb(129, 140, 248);
 			}
 			.post-item .description {
 				color: rgb(var(--gray-dark));
@@ -103,17 +145,30 @@ const posts = allPosts.sort(
 			</section>
 
 			<section class="recent-posts">
-				<h2>Articles récents</h2>
+				<h2>Contenu récent</h2>
 				<div class="post-list">
-					{posts.map((post) => (
+					{recentContent.map((item) => (
 						<article class="post-item">
-							<a href={`/blog/${post.id}`}>
-								<div class="date">
-									<FormattedDate date={post.data.pubDate} />
-								</div>
-								<h3>{post.data.title}</h3>
-								<p class="description">{post.data.description}</p>
-							</a>
+							{item.type === 'post' ? (
+								<a href={`/blog/${item.data.id}`}>
+									<div class="date">
+										<FormattedDate date={item.sortDate} />
+										<span class="badge badge-post">Article</span>
+									</div>
+									<h3>{item.data.data.title}</h3>
+									<p class="description">{item.data.data.description}</p>
+								</a>
+							) : (
+								<a href={`/talks/${item.data.id}`}>
+									<div class="date">
+										<FormattedDate date={item.sortDate} />
+										<span class="badge badge-talk">Conférence</span>
+									</div>
+									<h3>{item.data.data.title}</h3>
+									{item.lastConference &&<p class="description"><a href={item.lastConference.replayLink}>{item.lastConference.name}</a></p>}
+									
+								</a>
+							)}
 						</article>
 					))}
 				</div>

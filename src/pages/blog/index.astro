@@ -23,6 +23,9 @@ const posts = allPosts.sort(
 			main {
 				width: 960px;
 			}
+			h2 {
+				margin-bottom: 1em;
+			}
 			ul {
 				display: flex;
 				flex-wrap: wrap;
@@ -93,6 +96,7 @@ const posts = allPosts.sort(
 		<Header />
 		<main>
 			<section>
+			<h2>Mes articles de blog</h2>
 				<ul>
 					{
 						posts.map((post) => (

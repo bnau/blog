@@ -12,4 +12,18 @@ const blog = defineCollection({
 	})
 });
 
-export const collections = { blog };
+const talks = defineCollection({
+	loader: glob({ base: './src/content/talks', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		conferences: z.array(
+			z.object({
+				name: z.string(),
+				date: z.coerce.date(),
+				replayLink: z.string().url().optional(),
+			})
+		).min(1),
+	})
+});
+
+export const collections = { blog, talks };

@@ -1,0 +1,134 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import {
+	getLastConferenceDate,
+	getLastConferenceWithReplay,
+} from "../../utils/talks";
+
+// Get all talks
+const allTalks = await getCollection("talks");
+const talks = allTalks
+	.map((talk) => ({
+		...talk,
+		sortDate: getLastConferenceDate(talk),
+		lastConference: getLastConferenceWithReplay(talk),
+	}))
+	.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf());
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead
+			title={`Conférences - ${SITE_TITLE}`}
+			description={SITE_DESCRIPTION}
+		/>
+		<style>
+			main {
+				width: 960px;
+			}
+			h2 {
+				margin-bottom: 1em;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				width: calc(50% - 1rem);
+			}
+			.talk-card {
+				display: block;
+				padding: 1.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				transition:
+					box-shadow 0.2s ease,
+					transform 0.2s ease;
+				text-decoration: none;
+			}
+			.talk-card:hover {
+				box-shadow: 0 4px 12px rgba(var(--black), 10%);
+				transform: translateY(-2px);
+			}
+			.title {
+				margin: 0 0 0.5rem 0;
+				color: rgb(var(--black));
+				line-height: 1.3;
+				font-size: 1.4rem;
+			}
+			.date {
+				margin: 0 0 0.5rem 0;
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+			}
+			.abstract {
+				color: rgb(var(--gray-dark));
+				line-height: 1.6;
+				margin-bottom: 0.75rem;
+			}
+			.conference-info {
+				font-size: 0.85rem;
+				color: rgb(var(--accent));
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+			.conference-info a {
+				display: inline-flex;
+				align-items: center;
+			}
+			@media (max-width: 720px) {
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+			<h2>Mes présentations en conférences</h2>
+				<ul>
+					{
+						talks.map((talk) => {
+							const lastConf = talk.lastConference;
+							return (
+								<li>
+									<a
+										href={`/talks/${talk.id}/`}
+										class="talk-card"
+									>
+										<div class="date">
+											<FormattedDate
+												date={lastConf.date}
+											/>
+										</div>
+										<h4 class="title">{talk.data.title}</h4>
+										<p class="abstract">
+											{talk.body?.substring(0, 150)}...
+										</p>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

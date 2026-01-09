@@ -1,0 +1,149 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'talks'>['data'];
+
+const { title, conferences } = Astro.props;
+
+// Sort conferences by date (most recent first)
+const sortedConferences = [...conferences].sort(
+	(a, b) => b.date.valueOf() - a.date.valueOf()
+);
+---
+
+<html lang="fr">
+	<head>
+		<BaseHead title={title} description={title} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.conferences-section {
+				margin: 2rem 0;
+			}
+			.conferences-section h2 {
+				margin-bottom: 1rem;
+				color: rgb(var(--black));
+			}
+			.conference-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+			.conference-item {
+				padding: 1rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+			}
+			.conference-info {
+				flex: 1;
+			}
+			.conference-name {
+				font-weight: bold;
+				color: rgb(var(--black));
+				margin-bottom: 0.25rem;
+			}
+			.conference-date {
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+			}
+			.replay-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem 1rem;
+				background: rgb(var(--accent));
+				text-decoration: none;
+				border-radius: 4px;
+				font-size: 0.9rem;
+				transition: opacity 0.2s ease;
+				white-space: nowrap;
+			}
+			.replay-link:hover {
+				opacity: 0.9;
+			}
+			.content {
+				margin-top: 2rem;
+			}
+			@media (max-width: 720px) {
+				.conference-item {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+				.replay-link {
+					width: 100%;
+					justify-content: center;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="title">
+						<h1>{title}</h1>
+						<hr />
+					</div>
+
+					<div class="conferences-section">
+						<h2>Présentations</h2>
+						<div class="conference-list">
+							{sortedConferences.map((conf) => (
+								<div class="conference-item">
+									<div class="conference-info">
+										<div class="conference-name">{conf.name}</div>
+										<div class="conference-date">
+											<FormattedDate date={conf.date} />
+										</div>
+									</div>
+									{conf.replayLink && (
+										<a href={conf.replayLink} class="replay-link" target="_blank" rel="noopener noreferrer">
+											<Icon name="mdi:play-circle" size={20} />
+											Voir le replay
+										</a>
+									)}
+								</div>
+							))}
+						</div>
+					</div>
+
+					<div class="content">
+						<h2>Abstract</h2>
+						<slot />
+					</div>
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
