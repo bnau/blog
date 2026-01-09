@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_PROFILES } from '../consts';
-import { date } from 'astro:schema';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import profileImage from '../assets/profile.jpeg';
 
 // Get recent blog posts
 const allPosts = await getCollection('blog');
@@ -28,6 +28,14 @@ const posts = allPosts.sort(
 				text-align: center;
 				padding: 3rem 0;
 			}
+			.profile-image {
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				object-fit: cover;
+				margin-bottom: 2rem;
+				border: 4px solid rgb(var(--accent));
+			}
 			.hero h1 {
 				font-size: 3rem;
 				margin-bottom: 0.5rem;
@@ -36,11 +44,6 @@ const posts = allPosts.sort(
 				font-size: 1.25rem;
 				color: rgb(var(--gray));
 				margin-bottom: 2rem;
-			}
-			.social-section {
-				display: flex;
-				justify-content: center;
-				margin: 2rem 0;
 			}
 			.recent-posts {
 				margin-top: 3rem;
@@ -87,11 +90,16 @@ const posts = allPosts.sort(
 		<Header />
 		<main>
 			<section class="hero">
-				<h1>Bienvenue sur {SITE_TITLE}</h1>
-				<p>{SITE_DESCRIPTION}</p>
-				<div class="social-section">
-					<SocialLinks {...SOCIAL_PROFILES} />
-				</div>
+				<Image
+					src={profileImage}
+					alt="Photo de profil"
+					class="profile-image"
+					width={200}
+					height={200}
+				/>
+				<h1>Bertrand Nau</h1>
+				<p>Bienvenue sur mon blog où je vous partage mes découvertes et activités autour de l'IT.</p>
+				<p>On parlera Infra, IA, DevOps, Dev, et peut-être même plus !!!</p>
 			</section>
 
 			<section class="recent-posts">
