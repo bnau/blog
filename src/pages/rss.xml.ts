@@ -13,7 +13,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    site: context.site || 'https://example.com',
+    site: context.site || 'https://bertrand-nau.fr',
     items: sortedPosts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
@@ -23,6 +23,6 @@ export async function GET(context: APIContext) {
         customData: `<updated>${post.data.updatedDate.toISOString()}</updated>`
       }),
     })),
-    customData: `<language>en-us</language>`,
+    customData: `<language>fr</language>`,
   });
 }
