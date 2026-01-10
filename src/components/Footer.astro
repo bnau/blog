@@ -7,6 +7,13 @@ const today = new Date();
 ---
 
 <footer>
+	<SocialLinks
+		email={SOCIAL_PROFILES.email}
+		github={SOCIAL_PROFILES.github}
+		linkedin={SOCIAL_PROFILES.linkedin}
+		bluesky={SOCIAL_PROFILES.bluesky}
+		size={24}
+	/>
 	<p>&copy; {today.getFullYear()} Bertrand Nau. Tous droits réservés.</p>
 </footer>
 <style>
@@ -18,7 +25,12 @@ const today = new Date();
 	}
 
 	footer p {
-		margin: 0 0 1em 0;
+		margin: 0;
+	}
+
+	footer :global(.social-links) {
+		margin-bottom: 1.5rem;
+		justify-content: center;
 	}
 
 	.footer-links {

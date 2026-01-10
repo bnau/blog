@@ -1,32 +1,45 @@
 ---
-import { SITE_TITLE, SOCIAL_PROFILES } from '../consts';
+import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
-import SocialLinks from './SocialLinks.astro';
+import { Icon } from 'astro-icon/components';
 ---
 
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		<div class="internal-links desktop-only">
 			<HeaderLink href="/">Accueil</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/talks">Conférences</HeaderLink>
 			<HeaderLink href="/about">À propos</HeaderLink>
 		</div>
 		<div class="header-actions">
-			<SocialLinks
-				email={SOCIAL_PROFILES.email}
-				github={SOCIAL_PROFILES.github}
-				linkedin={SOCIAL_PROFILES.linkedin}
-				bluesky={SOCIAL_PROFILES.bluesky}
-				size={20}
-			/>
-			<div class="separator"></div>
 			<ThemeToggle />
+			<button class="burger-toggle mobile-only" aria-label="Menu" aria-expanded="false">
+				<span class="burger-line"></span>
+				<span class="burger-line"></span>
+				<span class="burger-line"></span>
+			</button>
 		</div>
 	</nav>
 </header>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu-overlay" aria-hidden="true">
+	<nav class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Navigation mobile">
+		<button class="close-button" aria-label="Fermer le menu">
+			<Icon name="mdi:close" size={24} />
+		</button>
+		<div class="mobile-menu-links">
+			<HeaderLink href="/">Accueil</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/talks">Conférences</HeaderLink>
+			<HeaderLink href="/about">À propos</HeaderLink>
+		</div>
+	</nav>
+</div>
+
 <style>
 	header {
 		margin: 0;
@@ -66,19 +79,234 @@ import SocialLinks from './SocialLinks.astro';
 		align-items: center;
 		gap: 0.75rem;
 	}
-	.separator {
-		width: 1px;
-		height: 24px;
-		background-color: rgb(var(--gray));
-		opacity: 0.4;
-		margin: 0 0.25rem;
+
+	/* Responsive visibility toggles */
+	.desktop-only {
+		display: flex;
 	}
-	@media (max-width: 720px) {
-		.header-actions {
-			gap: 0.5rem;
+
+	.mobile-only {
+		display: none;
+	}
+
+	@media (max-width: 768px) {
+		.desktop-only {
+			display: none;
 		}
-		.separator {
-			height: 20px;
+
+		.mobile-only {
+			display: flex;
 		}
+	}
+
+	/* Burger button styling */
+	.burger-toggle {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		color: rgb(var(--gray-dark));
+		transition: color 0.2s ease;
+	}
+
+	.burger-toggle:hover {
+		color: var(--accent);
+	}
+
+	.burger-line {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background-color: currentColor;
+		transition: all 0.3s ease;
+	}
+
+	/* Burger animation to X when menu is open */
+	:global(body.menu-open) .burger-line:nth-child(1) {
+		transform: rotate(45deg) translate(6px, 6px);
+	}
+
+	:global(body.menu-open) .burger-line:nth-child(2) {
+		opacity: 0;
+	}
+
+	:global(body.menu-open) .burger-line:nth-child(3) {
+		transform: rotate(-45deg) translate(6px, -6px);
+	}
+
+	/* Mobile menu overlay (backdrop) */
+	.mobile-menu-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 999;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	/* Hide mobile menu completely on desktop */
+	@media (min-width: 769px) {
+		.mobile-menu-overlay {
+			display: none;
+		}
+	}
+
+	:global(body.menu-open) .mobile-menu-overlay {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Mobile menu panel (slides from right) */
+	.mobile-menu-panel {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 80%;
+		max-width: 300px;
+		background: var(--header-bg);
+		box-shadow: -2px 0 8px rgba(var(--black), 20%);
+		transform: translateX(100%);
+		transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+		z-index: 1000;
+		overflow-y: auto;
+		padding: 2rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+
+	:global(body.menu-open) .mobile-menu-panel {
+		transform: translateX(0);
+	}
+
+	/* Close button */
+	.close-button {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgb(var(--gray-dark));
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.close-button:hover {
+		color: var(--accent);
+		transform: rotate(90deg);
+	}
+
+	/* Mobile menu links */
+	.mobile-menu-links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 3rem;
+	}
+
+	.mobile-menu-links :global(a) {
+		padding: 1rem 0.5rem;
+		font-size: 1.25rem;
+		color: rgb(var(--black));
+		border-bottom: 2px solid transparent;
+		text-decoration: none;
+		transition: border-color 0.2s ease;
+	}
+
+	.mobile-menu-links :global(a.active) {
+		border-bottom-color: var(--accent);
+	}
+
+	.mobile-menu-links :global(a:hover) {
+		border-bottom-color: var(--accent);
 	}
 </style>
+
+<script>
+	function initMobileMenu() {
+		const burgerToggle = document.querySelector('.burger-toggle');
+		const closeButton = document.querySelector('.close-button');
+		const overlay = document.querySelector('.mobile-menu-overlay');
+		const menuLinks = document.querySelectorAll('.mobile-menu-links a');
+		const body = document.body;
+
+		if (!burgerToggle || !closeButton || !overlay) return;
+
+		let isMenuOpen = false;
+
+		// Toggle menu function
+		function toggleMenu(open?: boolean) {
+			isMenuOpen = open !== undefined ? open : !isMenuOpen;
+
+			if (isMenuOpen) {
+				body.classList.add('menu-open');
+				body.style.overflow = 'hidden'; // Prevent body scroll
+				burgerToggle.setAttribute('aria-expanded', 'true');
+				overlay.setAttribute('aria-hidden', 'false');
+
+				// Focus on close button for accessibility
+				closeButton.focus();
+			} else {
+				body.classList.remove('menu-open');
+				body.style.overflow = ''; // Restore body scroll
+				burgerToggle.setAttribute('aria-expanded', 'false');
+				overlay.setAttribute('aria-hidden', 'true');
+
+				// Return focus to burger button
+				burgerToggle.focus();
+			}
+		}
+
+		// Event listeners
+		burgerToggle.addEventListener('click', () => toggleMenu());
+		closeButton.addEventListener('click', () => toggleMenu(false));
+
+		// Close when clicking backdrop (not panel)
+		overlay.addEventListener('click', (e) => {
+			if (e.target === overlay) {
+				toggleMenu(false);
+			}
+		});
+
+		// Escape key to close
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && isMenuOpen) {
+				toggleMenu(false);
+			}
+		});
+
+		// Close menu on window resize if > 768px
+		let resizeTimer: number;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				if (window.innerWidth > 768 && isMenuOpen) {
+					toggleMenu(false);
+				}
+			}, 250);
+		});
+
+		// Close menu on navigation (link click)
+		menuLinks.forEach(link => {
+			link.addEventListener('click', () => toggleMenu(false));
+		});
+	}
+
+	// Initialize on page load
+	initMobileMenu();
+
+	// Reinitialize on Astro view transitions
+	document.addEventListener('astro:page-load', initMobileMenu);
+</script>
