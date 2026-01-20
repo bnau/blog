@@ -1,8 +1,8 @@
 ---
-import '../styles/global.css';
-import type { ImageMetadata } from 'astro';
-import { SITE_TITLE } from '../consts';
-import profileImage from '../assets/profile.jpeg';
+import "../styles/global.css";
+import type { ImageMetadata } from "astro";
+import { SITE_TITLE } from "../consts";
+import profileImage from "../assets/profile.jpeg";
 
 interface Props {
 	title: string;
@@ -17,19 +17,31 @@ const { title, description } = Astro.props;
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/jpeg" href={profileImage.src} />
+<link rel="icon" type="image/jpeg" href={Astro.url + profileImage.src} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
 	type="application/rss+xml"
 	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
+	href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+<link
+	rel="preload"
+	href="/fonts/atkinson-regular.woff"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/atkinson-bold.woff"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -42,7 +54,7 @@ const { title, description } = Astro.props;
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:image" content={profileImage.src} />
+<meta property="og:image" content={Astro.url + profileImage.src} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 
@@ -52,4 +64,7 @@ const { title, description } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 
-<meta name="google-site-verification" content="i4Md99kJ_QGYfb4FJUmnmAOOezkFPLQieY5eg3E-Kww" />
+<meta
+	name="google-site-verification"
+	content="i4Md99kJ_QGYfb4FJUmnmAOOezkFPLQieY5eg3E-Kww"
+/>
