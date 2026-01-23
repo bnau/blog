@@ -135,10 +135,7 @@ const { pubDate, themes, conference } = veille.data;
 			<article>
 				<div class="prose">
 					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-						</div>
-						<h1>Veille du <FormattedDate date={pubDate} /></h1>
+						<h1><FormattedDate date={pubDate} long={true} /></h1>
 						<hr />
 					</div>
 
