@@ -1,0 +1,177 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_TITLE } from "../../consts";
+
+export async function getStaticPaths() {
+	const veilles = await getCollection("veille");
+
+	return veilles.map((veille) => ({
+		params: { slug: veille.id },
+		props: veille,
+	}));
+}
+type Props = CollectionEntry<"veille">;
+
+const veille = Astro.props;
+const { pubDate, themes, conference } = veille.data;
+---
+
+<html lang="fr">
+	<head>
+		<BaseHead
+			title={`Veille du ${pubDate.toLocaleDateString("fr-fr", { year: "numeric", month: "long", day: "numeric" })} - ${SITE_TITLE}`}
+			description={`Veille technologique : ${themes.map((t) => t.name).join(", ")}`}
+		/>
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.theme-section {
+				margin-bottom: 2rem;
+			}
+			.theme-section h3 {
+				margin-bottom: 0.75rem;
+			}
+			.articles-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+			.articles-list li {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				transition:
+					box-shadow 0.2s ease,
+					transform 0.2s ease;
+			}
+			.articles-list li:hover {
+				box-shadow: 0 4px 12px rgba(var(--black), 10%);
+				transform: translateY(-2px);
+			}
+			.articles-list a {
+				display: block;
+				padding: 1rem;
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			.article-title {
+				font-weight: 600;
+			}
+			.articles-list a:hover {
+				color: var(--accent);
+			}
+
+			.article-description {
+				margin: 0.5rem 0 0 0;
+				color: rgb(var(--gray-dark));
+			}
+			.conference-section {
+				margin-top: 2.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				background: rgba(var(--gray-light), 0.3);
+				transition:
+					box-shadow 0.2s ease,
+					transform 0.2s ease;
+			}
+			.conference-section:hover {
+				box-shadow: 0 4px 12px rgba(var(--black), 10%);
+				transform: translateY(-2px);
+			}
+			.conference-section h3 {
+				margin-top: 0;
+				margin-bottom: 0.75rem;
+			}
+			.conference-section a {
+				display: block;
+				padding: 1.5rem;
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			.conference-section a:hover {
+				color: var(--accent);
+			}
+			.conference-title {
+				font-weight: 600;
+			}
+			.conference-description {
+				margin: 0.5rem 0 0 0;
+				color: rgb(var(--gray-dark));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={pubDate} />
+						</div>
+						<h1>Veille du <FormattedDate date={pubDate} /></h1>
+						<hr />
+					</div>
+
+					{themes.map((theme) => (
+						<section class="theme-section">
+							<h3>{theme.name}</h3>
+							<ul class="articles-list">
+								{theme.articles.map((article) => (
+									<li>
+										<a href={article.link} target="_blank" rel="noopener noreferrer">
+											<div class="article-title">{article.title}</div>
+											{article.description && <p class="article-description">{article.description}</p>}
+										</a>
+									</li>
+								))}
+							</ul>
+						</section>
+					))}
+
+					<hr />
+
+					{conference && (
+						<section class="conference-section">
+							<a href={conference.link} target="_blank" rel="noopener noreferrer">
+								<h3>Conférence</h3>
+								<div class="conference-title">{conference.title}</div>
+								<p class="conference-description">{conference.description}</p>
+							</a>
+						</section>
+					)}
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

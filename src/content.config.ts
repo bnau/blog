@@ -26,4 +26,24 @@ const talks = defineCollection({
 	})
 });
 
-export const collections = { blog, talks };
+const veille = defineCollection({
+	loader: glob({ base: './src/content/veille', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		pubDate: z.coerce.date(),
+		themes: z.array(z.object({
+			name: z.string(),
+			articles: z.array(z.object({
+				title: z.string(),
+				link: z.string().url(),
+				description: z.string().optional(),
+			}))
+		})),
+		conference: z.object({
+			title: z.string(),
+			link: z.string().url(),
+			description: z.string(),
+		})
+	})
+});
+
+export const collections = { blog, talks, veille };

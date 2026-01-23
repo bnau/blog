@@ -7,11 +7,12 @@ import { Icon } from 'astro-icon/components';
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2 class="home-link"><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links desktop-only">
 			<HeaderLink href="/">Accueil</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/talks">Conférences</HeaderLink>
+			<HeaderLink href="/veille">Veille</HeaderLink>
 			<HeaderLink href="/about">À propos</HeaderLink>
 		</div>
 		<div class="header-actions">
@@ -35,6 +36,7 @@ import { Icon } from 'astro-icon/components';
 			<HeaderLink href="/">Accueil</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/talks">Conférences</HeaderLink>
+			<HeaderLink href="/veille">Veille</HeaderLink>
 			<HeaderLink href="/about">À propos</HeaderLink>
 		</div>
 	</nav>
@@ -64,11 +66,15 @@ import { Icon } from 'astro-icon/components';
 		justify-content: space-between;
 		gap: 1rem;
 	}
+	.home-link {
+		flex-basis: 10%;
+	}
 	nav a {
 		padding: 1em 0.5em;
 		color: rgb(var(--black));
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+		white-space: nowrap;
 	}
 	nav a.active {
 		text-decoration: none;
@@ -78,6 +84,8 @@ import { Icon } from 'astro-icon/components';
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
+		flex-basis: 10%;
+		justify-content: right;
 	}
 
 	/* Responsive visibility toggles */
