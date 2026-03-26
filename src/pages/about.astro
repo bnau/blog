@@ -56,6 +56,15 @@ import profileImage from '../assets/profile.jpeg';
 			.about-content li {
 				margin-bottom: 0.5rem;
 			}
+			.about-content a {
+				color: var(--accent);
+				text-decoration: none;
+				border-bottom: 1px solid transparent;
+				transition: border-color 0.2s ease;
+			}
+			.about-content a:hover {
+				border-bottom-color: var(--accent);
+			}
 		</style>
 	</head>
 	<body>
@@ -75,16 +84,21 @@ import profileImage from '../assets/profile.jpeg';
 			<div class="about-content">
 				<h2>Qui suis-je ?</h2>
 				<p>
-					Dans l'IT depuis 2014, j'ai un profil très polyvalent. Après plusieurs années de développement d'applications dans des langages variés (kudos à Kotlin et Rust), je me suis progressivement diversifié dans l'infrastructure Cloud et les technologies DevOps. J'ai aussi pu animer une communauté de pratique dédiée à l'IA pour inviter mes collègues à s'approprier le sujet.
+					Ingénieur logiciel expérimenté en IA pour développeurs, je vous propose de <a href="/formations">vous former</a> et de vous accompagner dans l'intégration d'intelligence artificielle dans vos projets,
+					que ce soit pour accélérer vos développements logiciels ou pour mettre en place des solutions d'IA générative dans vos plateformes.
 				</p>
 				<p>
-                    Passionné par la technique, très touche à tout, j'ai toujours soif d'apprendre et de partager sur des nouveaux sujets.
+					Au cours de mes expériences, j'ai participé à des projets de platform engineering avec services IA,
+					ou encore outillé des projets de développement IT.
+					J'ai également été meneur d'une communauté dédiée au sujet, où j'ai pu transmettre mes connaissances et
+					animer des sessions pratiques pour démocratiser l'usage de l'IA en entreprise.
 				</p>
-
-				<h2>Me contacter</h2>
 				<p>
-					N'hésitez pas à me contacter via les réseaux sociaux ou par mail.
-					Les liens sont disponibles en bas de page !
+					Passionné par les nouvelles technologies, j'aime apprendre, découvrir et partager mon savoir,
+					à travers des <a href="/talks">conférences</a>, des <a href="/blog">articles</a> et de la <a href="/formations">formation</a>.
+				</p>
+				<p>
+                    Au plaisir de discuter de vos projets et d'une éventuelle collaboration.
 				</p>
 			</div>
 		</main>

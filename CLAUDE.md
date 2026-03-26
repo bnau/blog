@@ -25,6 +25,7 @@ npx astro check          # Run Astro's type checking
 
 The blog uses Astro's **Content Collections API v5** with a file-based loader pattern:
 
+#### Blog Collection
 - **Content location**: `src/content/blog/`
 - **Supported formats**: `.md`, `.mdx` files
 - **Collection schema**: Defined in `src/content.config.ts` using Zod
@@ -40,6 +41,21 @@ The blog uses Astro's **Content Collections API v5** with a file-based loader pa
   cover?: ImageMetadata
 }
 ```
+
+#### Talks Collection
+- **Content location**: `src/content/talks/`
+- **Schema**: title, conferences array (name, date, replayLink)
+
+#### Veille Collection
+- **Content location**: `src/content/veille/`
+- **Schema**: pubDate, themes array (articles with links), conference object
+
+#### Formations Collection
+- **Content location**: `src/content/formations/`
+- **Schema**: title, summary, duration, objectives, targetAudience, maxParticipants, price, order
+- **Usage**: Training catalog with detailed programs in MDX content
+
+See `docs/OFFRES-FORMATIONS.md` for detailed documentation on the training system.
 
 ### Routing & Rendering
 

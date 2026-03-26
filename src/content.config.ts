@@ -46,4 +46,19 @@ const veille = defineCollection({
 	})
 });
 
-export const collections = { blog, talks, veille };
+const formations = defineCollection({
+	loader: glob({ base: './src/content/formations', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		subtitle: z.string().optional(),
+		summary: z.string(),
+		duration: z.number(), // en jours
+		objectives: z.array(z.string()),
+		targetAudience: z.string(),
+		maxParticipants: z.number(),
+		price: z.number(), // en euros
+		order: z.number(),
+	})
+});
+
+export const collections = { blog, talks, veille, formations };

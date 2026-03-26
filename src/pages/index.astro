@@ -68,6 +68,15 @@ const recentContent = [...posts, ...talks]
 				color: rgb(var(--gray));
 				margin-bottom: 2rem;
 			}
+			.hero a {
+				color: var(--accent);
+				text-decoration: none;
+				border-bottom: 1px solid transparent;
+				transition: border-color 0.2s ease;
+			}
+			.hero a:hover {
+				border-bottom-color: var(--accent);
+			}
 			.recent-posts {
 				margin-top: 3rem;
 			}
@@ -140,8 +149,11 @@ const recentContent = [...posts, ...talks]
 					height={200}
 				/>
 				<h1>Bertrand Nau</h1>
-				<p>Bienvenue sur mon blog où je vous partage mes découvertes et activités autour de l'IT.</p>
-				<p>On parlera Infra, IA, DevOps, Dev, et peut-être même plus !!!</p>
+				<p>
+					Ingénieur logiciel expérimenté en IA pour développeurs,
+					je partage mes connaissances à travers des <a href="/formations">formations</a>,
+					des <a href="/talks">conférences</a> et des <a href="/blog">articles</a>.
+				</p>
 			</section>
 
 			<section class="recent-posts">

@@ -1,0 +1,391 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+import { SOCIAL_PROFILES } from '../../consts';
+
+export async function getStaticPaths() {
+	const formations = await getCollection('formations');
+	return formations.map((formation) => ({
+		params: { slug: formation.id },
+		props: formation,
+	}));
+}
+
+type Props = CollectionEntry<'formations'>;
+
+const formation = Astro.props;
+const { Content } = await render(formation);
+const { title, summary, duration, objectives, targetAudience, maxParticipants, price } = formation.data;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={title} description={summary} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<!-- Header -->
+				<header class="formation-header">
+					<a href="/formations" class="back-link">
+						<Icon name="mdi:arrow-left" size={20} />
+						Retour aux formations
+					</a>
+					<h1>{title}</h1>
+					<p class="summary" set:html={summary} />
+
+					<!-- Key Info Cards -->
+					<div class="key-info">
+						<div class="info-card">
+							<Icon name="mdi:calendar" size={24} />
+							<span class="label">Durée</span>
+							<span class="value">{duration} jour{duration > 1 ? 's' : ''}</span>
+						</div>
+						<div class="info-card">
+							<Icon name="mdi:account-group" size={24} />
+							<span class="label">Participants</span>
+							<span class="value">Max {maxParticipants}</span>
+						</div>
+						<div class="info-card">
+							<Icon name="mdi:currency-eur" size={24} />
+							<span class="label">Tarif</span>
+							<span class="value">{price}€ / pers.</span>
+						</div>
+					</div>
+				</header>
+
+				<!-- Objectifs -->
+				<section class="objectives-section">
+					<h2>
+						<Icon name="mdi:target" size={28} />
+						Objectifs de la formation
+					</h2>
+					<ul class="objectives-list">
+						{objectives.map((objective) => (
+							<li>
+								<Icon name="mdi:check-circle" size={20} />
+								{objective}
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<!-- Public cible -->
+				<section class="audience-section">
+					<h2>
+						<Icon name="mdi:account" size={28} />
+						Public cible
+					</h2>
+					<p>{targetAudience}</p>
+				</section>
+
+				<!-- Programme détaillé (contenu MDX) -->
+				<section class="content-section">
+					<Content />
+				</section>
+
+				<!-- CTA -->
+				<section class="cta-section">
+					<div class="cta-content">
+						<h2>Intéressé par cette formation ?</h2>
+						<p>
+							Contactez-moi pour participer à cette formation
+							ou pour adapter le contenu à vos besoins spécifiques.
+						</p>
+						<div class="cta-buttons">
+							<a href={`mailto:${SOCIAL_PROFILES.email}`} class="cta-button primary">
+								<Icon name="mdi:email" size={20} />
+								Me contacter
+							</a>
+							<a href="/formations" class="cta-button secondary">
+								<Icon name="mdi:arrow-left" size={20} />
+								Voir toutes les formations
+							</a>
+						</div>
+					</div>
+				</section>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 960px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 3em 1em;
+	}
+
+	article {
+		color: rgb(var(--gray-dark));
+	}
+
+	/* Header */
+	.formation-header {
+		margin-bottom: 3em;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		color: rgb(var(--gray));
+		text-decoration: none;
+		margin-bottom: 1em;
+		transition: color 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--accent);
+	}
+
+	h1 {
+		font-size: 3em;
+		font-weight: 700;
+		line-height: 1.2;
+		margin-bottom: 0.5em;
+		color: rgb(var(--black));
+	}
+
+	.summary {
+		font-size: 1.3em;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+		margin-bottom: 2em;
+	}
+
+	.key-info {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1em;
+		margin-top: 2em;
+	}
+
+	.info-card {
+		background: rgb(var(--gray-light));
+		border-radius: 8px;
+		padding: 1.5em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 0.5em;
+		border-top: 3px solid rgb(var(--gray));
+		transition: transform 0.2s ease;
+	}
+
+	.info-card:hover {
+		transform: translateY(-2px);
+	}
+
+	.info-card.accent {
+		border-top-color: var(--accent);
+	}
+
+	.info-card [data-icon] {
+		color: rgb(var(--gray));
+	}
+
+	.info-card.accent [data-icon] {
+		color: var(--accent);
+	}
+
+	.info-card .label {
+		font-size: 0.9em;
+		color: rgb(var(--gray));
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.info-card .value {
+		font-size: 1.5em;
+		font-weight: 700;
+		color: rgb(var(--black));
+	}
+
+	/* Sections */
+	section {
+		margin-bottom: 3em;
+	}
+
+	h2 {
+		font-size: 2em;
+		font-weight: 700;
+		margin-bottom: 1em;
+		color: rgb(var(--black));
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
+	h2 [data-icon] {
+		color: var(--accent);
+	}
+
+	/* Objectives */
+	.objectives-list {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		gap: 1em;
+	}
+
+	.objectives-list li {
+		display: flex;
+		align-items: start;
+		gap: 1em;
+		padding: 1em;
+		background: rgb(var(--gray-light));
+		border-radius: 8px;
+		border-left: 3px solid var(--accent);
+	}
+
+	.objectives-list [data-icon] {
+		color: var(--accent);
+		flex-shrink: 0;
+		margin-top: 0.2em;
+	}
+
+	/* Audience */
+	.audience-section p {
+		font-size: 1.1em;
+		line-height: 1.7;
+		padding: 1.5em;
+		background: rgb(var(--gray-light));
+		border-radius: 8px;
+		border-left: 4px solid var(--accent);
+	}
+
+	/* Content (Programme) */
+	.content-section {
+		line-height: 1.7;
+	}
+
+	.content-section :global(h2) {
+		font-size: 1.8em;
+		margin-top: 2em;
+		margin-bottom: 0.8em;
+		color: rgb(var(--black));
+	}
+
+	.content-section :global(h3) {
+		font-size: 1.4em;
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
+		color: rgb(var(--black));
+	}
+
+	.content-section :global(strong) {
+		color: rgb(var(--black));
+	}
+
+	.content-section :global(ul) {
+		margin-left: 1.5em;
+		margin-bottom: 1em;
+	}
+
+	.content-section :global(li) {
+		margin-bottom: 0.5em;
+	}
+
+	/* CTA Section */
+	.cta-section {
+		background: rgb(var(--gray-light));
+		border: 1px solid rgba(var(--gray), 20%);
+		border-radius: 12px;
+		padding: 3em 2em;
+		text-align: center;
+		margin-top: 4em;
+	}
+
+	.cta-content h2 {
+		color: rgb(var(--black));
+		margin-bottom: 0.5em;
+		justify-content: center;
+	}
+
+	.cta-content h2 [data-icon] {
+		color: var(--accent);
+	}
+
+	.cta-content p {
+		font-size: 1.2em;
+		margin-bottom: 2em;
+		color: rgb(var(--gray-dark));
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.cta-buttons {
+		display: flex;
+		gap: 1em;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.8em 2em;
+		border-radius: 50px;
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 1.1em;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.cta-button.primary {
+		background: white;
+		color: rgb(var(--gray-dark));
+		border: 2px solid rgb(var(--gray));
+	}
+
+	.cta-button.primary:hover {
+		background: rgb(var(--gray-light));
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.cta-button.secondary {
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+		border: 2px solid rgb(var(--gray));
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 2em;
+		}
+
+		h2 {
+			font-size: 1.6em;
+		}
+
+		.key-info {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+		}
+
+		.cta-button {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+</style>
