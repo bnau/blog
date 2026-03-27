@@ -1,16 +1,27 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import profileImage from '../assets/profile.jpeg';
+
+// Pre-optimize profile image
+const optimizedProfile = await getImage({
+	src: profileImage,
+	width: 400, // 2x for retina
+	height: 400,
+	format: "webp",
+	quality: 85,
+});
 ---
 
 <!doctype html>
 <html lang="fr">
 	<head>
 		<BaseHead title={`À propos | ${SITE_TITLE}`} description="En savoir plus sur Bertrand Nau et son parcours professionnel" />
+		<!-- Preload profile image to prevent flash -->
+		<link rel="preload" as="image" href={optimizedProfile.src} type="image/webp" />
 		<style>
 			main {
 				width: 960px;
@@ -71,12 +82,14 @@ import profileImage from '../assets/profile.jpeg';
 		<Header />
 		<main>
 			<div class="about-header">
-				<Image
-					src={profileImage}
+				<img
+					src={optimizedProfile.src}
 					alt="Photo de profil de Bertrand Nau"
 					class="profile-image"
-					width={200}
-					height={200}
+					width={optimizedProfile.attributes.width}
+					height={optimizedProfile.attributes.height}
+					loading="eager"
+					decoding="sync"
 				/>
 				<h1>À propos</h1>
 			</div>
