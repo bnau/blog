@@ -1,6 +1,6 @@
 ---
-title: "Développement accéléré par l'IA générative"
-subtitle: "Avec Claude Code, MCP, Spec Kit et l'Agentic Coding"
+title: "Développement accéléré par l'Agentic coding"
+subtitle: "Avec Claude Code, MCP et Spec Kit"
 summary: "<p>Cette formation intensive de 2 jours est conçue pour des profils techniques souhaitant adopter l'IA générative pour augmenter leur productivité et maîtriser les nouvelles techniques de développement.</p><p>Elle allie théorie et pratique, avec des ateliers concrets basés sur les outils émergents dans l'industrie - Claude Code, MCP, Spec Kit, etc.</p><p>À l'issue de cette formation, les participants sauront appliquer les méthodes d'Agentic Coding dans leurs projets en entreprise et auront à leur disposition une stack complète d'exemple qu'ils pourront adapter à leurs besoins spécifiques.</p>"
 duration: 2
 objectives:
@@ -51,13 +51,13 @@ order: 2
 - Tooling natif
 - **Atelier** : Configuration de Claude Code pour un projet simple
 
-### **Module 7 : Spec-Driven Development avec IA**
+### **Module 6 : Spec-Driven Development**
 - Introduction au spec-driven development
 - Plusieurs méthodologies : Spec Kit, BMAD, Ralph loop
 - Présentation de Spec kit et bonnes pratiques
 - **Atelier** : Développement d'un mini-projet sans écrire de code
 
-### **Module 6 : Claude Code Avancé**
+### **Module 7 : Claude Code Avancé**
 - Agents, sous-agents et équipes d'agents
 - MCP vs Skills vs Agents
 - Les différents modes de réflexion
