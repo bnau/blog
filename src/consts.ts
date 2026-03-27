@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'Bertrand Nau';
-export const SITE_DESCRIPTION = 'Blog de Bertrand Nau';
+export const SITE_DESCRIPTION = 'Site de Bertrand Nau';
 
 export const SOCIAL_PROFILES = {
   email: 'contact@bertrand-nau.fr',

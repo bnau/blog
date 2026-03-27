@@ -23,7 +23,7 @@ const { pubDate, themes, conference } = veille.data;
 <html lang="fr">
 	<head>
 		<BaseHead
-			title={`Veille du ${pubDate.toLocaleDateString("fr-fr", { year: "numeric", month: "long", day: "numeric" })} - ${SITE_TITLE}`}
+			title={`Veille du ${pubDate.toLocaleDateString("fr-fr", { year: "numeric", month: "long", day: "numeric" })} | ${SITE_TITLE}`}
 			description={`Veille technologique : ${themes.map((t) => t.name).join(", ")}`}
 		/>
 		<style>

@@ -4,7 +4,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import { SOCIAL_PROFILES } from '../../consts';
+import { SOCIAL_PROFILES, SITE_TITLE } from '../../consts';
 
 export async function getStaticPaths() {
 	const formations = await getCollection('formations');
@@ -24,7 +24,7 @@ const { title, summary, duration, objectives, targetAudience, maxParticipants, p
 <!doctype html>
 <html lang="fr">
 	<head>
-		<BaseHead title={title} description={summary} />
+		<BaseHead title={`${title} | ${SITE_TITLE}`} description={summary} />
 	</head>
 	<body>
 		<Header />
