@@ -17,6 +17,15 @@ const { title, description } = Astro.props;
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- Theme initialization script - MUST run before first paint to prevent flash -->
+<script is:inline>
+	(function() {
+		const theme = localStorage.getItem('theme') ||
+			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		document.documentElement.setAttribute('data-theme', theme);
+	})();
+</script>
 <link rel="icon" type="image/jpeg" href={Astro.site + profileImage.src} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
