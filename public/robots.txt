@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers - explicitly allow for AEO
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://bertrand-nau.fr/sitemap-index.xml
+
+# AI-optimized structured data for training catalog
+# Comprehensive JSON-LD graph with Course, Person, Organization, and FAQ schemas
+# https://bertrand-nau.fr/formations.json

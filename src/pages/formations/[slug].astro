@@ -4,7 +4,13 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import { SOCIAL_PROFILES, SITE_TITLE } from '../../consts';
+import { SOCIAL_PROFILES, SITE_TITLE, AUTHOR, SITE_URL } from '../../consts';
+import {
+	generateCourseSchema,
+	generateBreadcrumbList,
+	generatePersonSchema,
+	serializeJsonLd,
+} from '../../utils/structured-data';
 
 export async function getStaticPaths() {
 	const formations = await getCollection('formations');
@@ -18,13 +24,26 @@ type Props = CollectionEntry<'formations'>;
 
 const formation = Astro.props;
 const { Content } = await render(formation);
-const { title, summary, duration, objectives, targetAudience, maxParticipants, price } = formation.data;
+const { title, summary, duration, objectives, targetAudience, maxParticipants, price } =
+	formation.data;
+
+// Generate JSON-LD schemas for AEO
+const authorSchema = generatePersonSchema(AUTHOR);
+const courseSchema = generateCourseSchema(formation, authorSchema, SITE_URL);
+const breadcrumbs = generateBreadcrumbList([
+	{ name: 'Accueil', url: SITE_URL },
+	{ name: 'Formations', url: `${SITE_URL}/formations` },
+	{ name: title, url: `${SITE_URL}/formations/${formation.id}` },
+]);
 ---
 
 <!doctype html>
 <html lang="fr">
 	<head>
 		<BaseHead title={`${title} | ${SITE_TITLE}`} description={summary} />
+		<!-- JSON-LD structured data for AEO -->
+		<script type="application/ld+json" set:html={serializeJsonLd(courseSchema)} />
+		<script type="application/ld+json" set:html={serializeJsonLd(breadcrumbs)} />
 	</head>
 	<body>
 		<Header />
@@ -54,7 +73,7 @@ const { title, summary, duration, objectives, targetAudience, maxParticipants, p
 						<div class="info-card">
 							<Icon name="mdi:currency-eur" size={24} />
 							<span class="label">Tarif</span>
-							<span class="value">{price}€ / pers.</span>
+							<span class="value">{price}€ HT / pers.</span>
 						</div>
 					</div>
 				</header>

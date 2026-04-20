@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, NAV_CONFIG } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { Icon } from 'astro-icon/components';
@@ -13,7 +13,7 @@ import { Icon } from 'astro-icon/components';
 			<HeaderLink href="/formations">Formations</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/talks">Conférences</HeaderLink>
-			<HeaderLink href="/veille">Veille</HeaderLink>
+			{NAV_CONFIG.veille.enabled && <HeaderLink href="/veille">Veille</HeaderLink>}
 			<HeaderLink href="/about">À propos</HeaderLink>
 		</div>
 		<div class="header-actions">
@@ -38,7 +38,7 @@ import { Icon } from 'astro-icon/components';
 			<HeaderLink href="/formations">Formations</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/talks">Conférences</HeaderLink>
-			<HeaderLink href="/veille">Veille</HeaderLink>
+			{NAV_CONFIG.veille.enabled && <HeaderLink href="/veille">Veille</HeaderLink>}
 			<HeaderLink href="/about">À propos</HeaderLink>
 		</div>
 	</nav>

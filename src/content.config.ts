@@ -3,13 +3,19 @@ import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	schema: ({ image }) => z.object({
-		title: z.string(),
-		description: z.string(),
-		pubDate: z.coerce.date(),
-		updatedDate: z.coerce.date().optional(),
-		cover: image(),
-	})
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			cover: image().optional(),
+			// AEO fields (all optional - extracted automatically if missing)
+			author: z.string().optional(),
+			keywords: z.array(z.string()).optional(),
+			language: z.enum(['fr', 'en']).default('fr'),
+			relatedCourses: z.array(z.string()).optional(),
+		}),
 });
 
 const talks = defineCollection({
@@ -56,9 +62,16 @@ const formations = defineCollection({
 		objectives: z.array(z.string()),
 		targetAudience: z.string(),
 		maxParticipants: z.number(),
-		price: z.number(), // en euros
+		price: z.number(), // en euros HT
 		order: z.number(),
-	})
+		// AEO fields (all optional - extracted/generated automatically if missing)
+		courseCode: z.string().optional(),
+		level: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
+		language: z.enum(['fr', 'en']).default('fr'),
+		keywords: z.array(z.string()).optional(),
+		teaches: z.array(z.string()).optional(),
+		instructor: z.string().default('Bertrand Nau'),
+	}),
 });
 
 export const collections = { blog, talks, veille, formations };

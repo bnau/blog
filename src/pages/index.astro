@@ -6,14 +6,25 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, AUTHOR, SITE_URL, SOCIAL_PROFILES } from '../consts';
+import { Icon } from 'astro-icon/components';
 import profileImage from '../assets/profile.jpeg';
-import { getLastConferenceDate, getLastConferenceWithReplay }from '../utils/talks'
+import { getLastConferenceDate, getLastConferenceWithReplay } from '../utils/talks';
+import {
+	generatePersonSchema,
+	generateWebSiteSchema,
+	serializeJsonLd,
+} from '../utils/structured-data';
 
 // Union type for mixed content
 type ContentItem =
 	| { type: 'post'; data: CollectionEntry<'blog'>; sortDate: Date }
-	| { type: 'talk'; data: CollectionEntry<'talks'>; sortDate: Date, lastConference: {name: string, replayLink?: string} };
+	| {
+			type: 'talk';
+			data: CollectionEntry<'talks'>;
+			sortDate: Date;
+			lastConference: { name: string; replayLink?: string };
+		};
 
 // Get all collections
 const allPosts = await getCollection('blog');
@@ -21,44 +32,48 @@ const allTalks = await getCollection('talks');
 const allFormations = await getCollection('formations');
 
 // Get recent formations (last 2, sorted by order)
-const recentFormations = allFormations
-	.sort((a, b) => a.data.order - b.data.order)
-	.slice(0, 2);
+const recentFormations = allFormations.sort((a, b) => a.data.order - b.data.order).slice(0, 2);
 
 // Transform to union type with discriminator
-const posts: ContentItem[] = allPosts.map(post => ({
+const posts: ContentItem[] = allPosts.map((post) => ({
 	type: 'post' as const,
 	data: post,
 	sortDate: post.data.pubDate,
 }));
 
-const talks: ContentItem[] = allTalks.map(talk => ({
+const talks: ContentItem[] = allTalks.map((talk) => ({
 	type: 'talk' as const,
 	data: talk,
 	sortDate: getLastConferenceDate(talk),
-	lastConference: getLastConferenceWithReplay(talk)
+	lastConference: getLastConferenceWithReplay(talk),
 }));
 
 // Get 2 most recent posts and 2 most recent talks
-const recentPosts = posts
-	.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf())
-	.slice(0, 2);
+const recentPosts = posts.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf()).slice(0, 2);
 
-const recentTalks = talks
-	.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf())
-	.slice(0, 2);
+const recentTalks = talks.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf()).slice(0, 2);
 
 // Merge and sort
-const recentContent = [...recentPosts, ...recentTalks]
-	.sort((a, b) => b.sortDate.valueOf() - a.sortDate.valueOf());
+const recentContent = [...recentPosts, ...recentTalks].sort(
+	(a, b) => b.sortDate.valueOf() - a.sortDate.valueOf()
+);
 
 // Pre-optimize profile image for hero section
 const optimizedProfile = await getImage({
 	src: profileImage,
 	width: 400, // 2x for retina
 	height: 400,
-	format: "webp",
+	format: 'webp',
 	quality: 85,
+});
+
+// Generate JSON-LD schemas for AEO
+const personSchema = generatePersonSchema(AUTHOR);
+const websiteSchema = generateWebSiteSchema({
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	url: SITE_URL,
+	inLanguage: 'fr',
 });
 ---
 
@@ -68,6 +83,9 @@ const optimizedProfile = await getImage({
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<!-- Preload hero image to prevent flash -->
 		<link rel="preload" as="image" href={optimizedProfile.src} type="image/webp" />
+		<!-- JSON-LD structured data for AEO -->
+		<script type="application/ld+json" set:html={serializeJsonLd(personSchema)} />
+		<script type="application/ld+json" set:html={serializeJsonLd(websiteSchema)} />
 		<style>
 			main {
 				width: 960px;
@@ -93,14 +111,36 @@ const optimizedProfile = await getImage({
 				color: rgb(var(--gray));
 				margin-bottom: 2rem;
 			}
-			.hero a {
+			.hero a:not(.cta-button) {
 				color: var(--accent);
 				text-decoration: none;
 				border-bottom: 1px solid transparent;
 				transition: border-color 0.2s ease;
 			}
-			.hero a:hover {
+			.hero a:not(.cta-button):hover {
 				border-bottom-color: var(--accent);
+			}
+			.cta-button {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5em;
+				background: var(--bg-color);
+				color: rgb(var(--black));
+				border: 2px solid rgb(var(--gray));
+				padding: 0.8em 2em;
+				border-radius: 50px;
+				text-decoration: none;
+				font-weight: 700;
+				font-size: 1.1em;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+				margin-top: 1.5rem;
+			}
+			.cta-button:hover {
+				background: rgb(var(--gray-light));
+				border-color: var(--accent);
+				color: var(--accent);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 			}
 			.recent-posts {
 				margin-top: 3rem;
@@ -221,10 +261,14 @@ const optimizedProfile = await getImage({
 					je partage mes connaissances à travers des <a href="/formations">formations</a>,
 					des <a href="/talks">conférences</a> et des <a href="/blog">articles</a>.
 				</p>
+				<a href={`mailto:${SOCIAL_PROFILES.email}`} class="cta-button">
+					<Icon name="mdi:email" size={24} />
+					Me contacter
+				</a>
 			</section>
 
 			<section class="recent-posts">
-				<h2>Formations récentes</h2>
+				<h2>Dernières formations</h2>
 				<div class="formations-list">
 					{recentFormations.map((formation) => (
 						<article class="formation-card">
@@ -244,7 +288,7 @@ const optimizedProfile = await getImage({
 			</section>
 
 			<section class="recent-posts">
-				<h2>Publications récentes</h2>
+				<h2>Dernières publications</h2>
 				<div class="post-list">
 					{recentContent.map((item) => (
 						<article class="post-item">

@@ -3,25 +3,35 @@ import { Image, getImage } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, AUTHOR } from '../consts';
 import profileImage from '../assets/profile.jpeg';
+import { generatePersonSchema, serializeJsonLd } from '../utils/structured-data';
 
 // Pre-optimize profile image
 const optimizedProfile = await getImage({
 	src: profileImage,
 	width: 400, // 2x for retina
 	height: 400,
-	format: "webp",
+	format: 'webp',
 	quality: 85,
 });
+
+// Generate detailed Person schema for AEO
+const personSchema = generatePersonSchema(AUTHOR);
 ---
 
 <!doctype html>
 <html lang="fr">
 	<head>
-		<BaseHead title={`À propos | ${SITE_TITLE}`} description="En savoir plus sur Bertrand Nau et son parcours professionnel" />
+		<BaseHead
+			title={`À propos | ${SITE_TITLE}`}
+			description="En savoir plus sur Bertrand Nau et son parcours professionnel. Expert en agentic coding, Claude Code et développement assisté par IA."
+			type="profile"
+		/>
 		<!-- Preload profile image to prevent flash -->
 		<link rel="preload" as="image" href={optimizedProfile.src} type="image/webp" />
+		<!-- JSON-LD structured data for AEO -->
+		<script type="application/ld+json" set:html={serializeJsonLd(personSchema)} />
 		<style>
 			main {
 				width: 960px;
