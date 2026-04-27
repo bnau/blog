@@ -105,11 +105,36 @@ const websiteSchema = generateWebSiteSchema({
 			.hero h1 {
 				font-size: 3rem;
 				margin-bottom: 0.5rem;
+				line-height: 1.2;
 			}
-			.hero p {
-				font-size: 1.25rem;
-				color: rgb(var(--gray));
+			.hero .tagline {
+				font-size: 1.5rem;
+				color: rgb(var(--gray-dark));
 				margin-bottom: 2rem;
+				font-weight: 500;
+			}
+			.credentials {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				margin-bottom: 2rem;
+			}
+			.credentials-badge {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+				padding: 0.6rem 1rem;
+				border-radius: 6px;
+				background: rgb(var(--gray-light));
+				border: 1px solid rgba(var(--gray), 0.2);
+			}
+			.credentials-badge [data-icon] {
+				color: rgb(var(--accent));
+				flex-shrink: 0;
 			}
 			.hero a:not(.cta-button) {
 				color: var(--accent);
@@ -256,11 +281,25 @@ const websiteSchema = generateWebSiteSchema({
 					decoding="sync"
 				/>
 				<h1>Bertrand Nau</h1>
-				<p>
-					Ingénieur logiciel expérimenté en IA pour développeurs,
-					je partage mes connaissances à travers des <a href="/formations">formations</a>,
-					des <a href="/talks">conférences</a> et des <a href="/blog">articles</a>.
+				<p class="tagline">
+					Formation et accompagnement en Agentic Coding pour accélérer vos développements avec l'IA générative.
 				</p>
+
+				<div class="credentials">
+					<div class="credentials-badge">
+						<Icon name="mdi:office-building" size={18} />
+						<span>Dev / DevOps / IA</span>
+					</div>
+					<div class="credentials-badge">
+						<Icon name="mdi:microphone-variant" size={18} />
+						<span>Conference Speaker</span>
+					</div>
+					<div class="credentials-badge">
+						<Icon name="mdi:kubernetes" size={18} />
+						<span>Kubestronaut</span>
+					</div>
+				</div>
+
 				<a href={`mailto:${SOCIAL_PROFILES.email}`} class="cta-button">
 					<Icon name="mdi:email" size={24} />
 					Me contacter
