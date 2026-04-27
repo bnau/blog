@@ -6,6 +6,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, AUTHOR, SITE_URL, SOCIAL_PROFILES } from '../consts';
 import { Icon } from 'astro-icon/components';
 import profileImage from '../assets/profile.jpeg';
@@ -135,6 +136,23 @@ const websiteSchema = generateWebSiteSchema({
 			.credentials-badge [data-icon] {
 				color: rgb(var(--accent));
 				flex-shrink: 0;
+			}
+			.hero-social-links {
+				display: flex;
+				justify-content: center;
+				margin-top: 1.5rem;
+				margin-bottom: 1rem;
+			}
+			.hero-social-links :global(.social-links) {
+				gap: 1.5rem;
+			}
+			.hero-social-links :global(.social-links a) {
+				color: rgb(var(--gray));
+				transition: color 0.2s ease, transform 0.2s ease;
+			}
+			.hero-social-links :global(.social-links a:hover) {
+				color: rgb(var(--accent));
+				transform: translateY(-2px);
 			}
 			.hero a:not(.cta-button) {
 				color: var(--accent);
@@ -304,6 +322,15 @@ const websiteSchema = generateWebSiteSchema({
 					<Icon name="mdi:email" size={24} />
 					Me contacter
 				</a>
+
+				<div class="hero-social-links">
+					<SocialLinks
+						github={SOCIAL_PROFILES.github}
+						linkedin={SOCIAL_PROFILES.linkedin}
+						bluesky={SOCIAL_PROFILES.bluesky}
+						size={28}
+					/>
+				</div>
 			</section>
 
 			<section class="recent-posts">

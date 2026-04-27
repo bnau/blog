@@ -13,9 +13,11 @@ const { email, github, linkedin, bluesky, size = 32 } = Astro.props;
 ---
 
 <div class="social-links">
-  <a href={`mailto:${email}`} title="Email" aria-label="Send an email">
-    <Icon name="mdi:email" size={size} />
-  </a>
+  {email && (
+    <a href={`mailto:${email}`} title="Email" aria-label="Send an email">
+      <Icon name="mdi:email" size={size} />
+    </a>
+  )}
   <a
     href={`https://github.com/${github}`}
     target="_blank"
