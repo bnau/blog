@@ -1,18 +1,21 @@
 ---
-import { Image, getImage } from 'astro:assets';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE, AUTHOR } from '../consts';
-import profileImage from '../assets/profile.jpeg';
-import { generatePersonSchema, serializeJsonLd } from '../utils/structured-data';
+import { Image, getImage } from "astro:assets";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE, AUTHOR } from "../consts";
+import profileImage from "../assets/profile.jpeg";
+import {
+	generatePersonSchema,
+	serializeJsonLd,
+} from "../utils/structured-data";
 
 // Pre-optimize profile image
 const optimizedProfile = await getImage({
 	src: profileImage,
 	width: 400, // 2x for retina
 	height: 400,
-	format: 'webp',
+	format: "webp",
 	quality: 85,
 });
 
@@ -29,9 +32,17 @@ const personSchema = generatePersonSchema(AUTHOR);
 			type="profile"
 		/>
 		<!-- Preload profile image to prevent flash -->
-		<link rel="preload" as="image" href={optimizedProfile.src} type="image/webp" />
+		<link
+			rel="preload"
+			as="image"
+			href={optimizedProfile.src}
+			type="image/webp"
+		/>
 		<!-- JSON-LD structured data for AEO -->
-		<script type="application/ld+json" set:html={serializeJsonLd(personSchema)} />
+		<script
+			type="application/ld+json"
+			set:html={serializeJsonLd(personSchema)}
+		/>
 		<style>
 			main {
 				width: 960px;
@@ -107,21 +118,80 @@ const personSchema = generatePersonSchema(AUTHOR);
 			<div class="about-content">
 				<h2>Qui suis-je ?</h2>
 				<p>
-					Ingénieur logiciel expérimenté en IA pour développeurs, je vous propose de <a href="/formations">vous former</a> et de vous accompagner dans l'intégration d'intelligence artificielle dans vos projets,
-					que ce soit pour accélérer vos développements logiciels ou pour mettre en place des solutions d'IA générative dans vos plateformes.
+					Ingénieur logiciel aguerri en IA pour développeurs, je vous
+					propose de <a href="/formations">vous former</a>
+					et de vous accompagner dans l'intégration d'intelligence artificielle
+					dans vos projets, que ce soit pour accélérer vos développements
+					logiciels ou pour mettre en place des solutions d'IA générative
+					dans vos plateformes.
+				</p>
+				<h2>Mon parcours</h2>
+				<p>
+					Depuis 2014, j'ai été consultant technique dans des
+					environnements très différents, allant de la startup à la
+					grande entreprise (Orange Business Services, CMA-CGM...).
+					Mon domaine de compétence s'étend du build, avec du
+					développement fullstack, au run, avec les technologies
+					DevOps et Cloud Native.
 				</p>
 				<p>
-					Au cours de mes expériences, j'ai participé à des projets de platform engineering avec services IA,
-					ou encore outillé des projets de développement IT.
-					J'ai également été meneur d'une communauté dédiée au sujet, où j'ai pu transmettre mes connaissances et
-					animer des sessions pratiques pour démocratiser l'usage de l'IA en entreprise.
+					Certifié <strong>Kubestronaut</strong>, j'ai notamment
+					travaillé sur des projets de <strong
+						>Platform Engineering</strong
+					> ou du développement de services cloud : Postgres managé chez
+					Numspot, Stack d'Observabilité chez OBS.
 				</p>
 				<p>
-					Passionné par les nouvelles technologies, j'aime apprendre, découvrir et partager mon savoir,
-					à travers des <a href="/talks">conférences</a>, des <a href="/blog">articles</a> et de la <a href="/formations">formation</a>.
+					Depuis deux ans, je pratique l'intégration de l'IA
+					générative dans les workflows de développement.
+				</p>
+
+				<h2>Transmission et communauté</h2>
+				<p>
+					Convaincu que l'IA générative va transformer profondément
+					nos métiers, j'ai animé une
+					<strong>communauté interne</strong> dédiée à l'agentic coding,
+					réunissant plusieurs dizaines de développeurs et tech leads à
+					travers des sessions pratiques, des ateliers et des séances de
+					partage de veille.
 				</p>
 				<p>
-                    Au plaisir de discuter de vos projets et d'une éventuelle collaboration.
+					Aujourd'hui, je continue d'animer des séances de travail
+					dans des communautés de développeurs privées. Je partage
+					également mes connaissances à travers des <a href="/talks"
+						>conférences</a
+					> et des <a href="/blog">articles de blog</a>.
+				</p>
+
+				<h2>Pourquoi me faire confiance ?</h2>
+				<p>
+					Mon parcours m'a amené à travailler sur des sujets variés :
+					développement backend et frontend, déploiement et
+					orchestration, automatisation CI/CD, infrastructure cloud,
+					platform engineering et plus récemment l'IA générative.
+				</p>
+				<p>
+					Cette diversité d'expérience me donne une bonne vision
+					d'ensemble des projets informatiques, de l'écriture du code
+					jusqu'à sa mise en production. J'ai travaillé dans des
+					contextes très différents et j'ai appris à m'adapter aux
+					contraintes de chaque environnement.
+				</p>
+				<p>
+					Je n'ai pas de préférence particulière pour un outil ou un
+					langage : je choisis en fonction du contexte, des objectifs
+					et des affinités technologiques de mes clients.
+				</p>
+
+				<h2>Collaboration</h2>
+				<p>
+					Que vous
+					ayez besoin de <a href="/formations">formation</a>, de
+					conseil technique ou d'accompagnement, je vous apporterai
+					des solutions concrètes et adaptées à votre situation.
+				</p>
+				<p>
+					Au plaisir de discuter de vos projets.
 				</p>
 			</div>
 		</main>
