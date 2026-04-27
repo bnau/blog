@@ -16,12 +16,12 @@ order: 2
 
 ## Programme détaillé
 
-### **Module 1 : Introduction aux LLMs et au prompt engineering**
+### **Module 1 : Introduction aux LLMs et au context engineering**
 - Fonctionnement des LLMs et paramètres
 - Fenêtre de contexte, gestion du token budget
-- Techniques de prompting
+- Techniques de prompting et de context engineering
 - Évaluer et tester vos prompts
-- **Atelier** : Manipulation de LLMs et comparaison de prompts
+- **Atelier** : Manipulation de LLMs et construction de contextes
 
 ### **Module 2 : Vibe coding et agentic coding**
 - Introduction au vibe coding
