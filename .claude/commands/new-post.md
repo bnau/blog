@@ -16,6 +16,8 @@ This command creates a new blog post file in `src/content/blog/` with:
 - Today's date as pubDate
 - Template content to get started
 
+**IMPORTANT**: This blog is in French. All content (titles, descriptions, template text) should be in French unless explicitly requested otherwise.
+
 ## Steps
 
 1. Ask the user for:
@@ -29,22 +31,22 @@ This command creates a new blog post file in `src/content/blog/` with:
 
 ```markdown
 ---
-title: '[TITLE]'
+title: '[TITRE]'
 description: '[DESCRIPTION]'
-pubDate: '[TODAY_DATE]'
+pubDate: '[DATE_DU_JOUR]'
 ---
 
 ## Introduction
 
-Write your introduction here...
+Écrivez votre introduction ici...
 
-## Main Content
+## Contenu principal
 
-Your main content goes here...
+Votre contenu principal ici...
 
 ## Conclusion
 
-Wrap up your post here...
+Concluez votre article ici...
 ```
 
 4. Confirm the file was created and show the path

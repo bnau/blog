@@ -141,6 +141,7 @@ The filename becomes the URL slug (e.g., `my-post.md` → `/blog/my-post/`).
 
 This repository includes custom commands in `.claude/skills/`:
 
+### Blog Management
 - **`/new-post [title]`** - Create a new blog post with template
 - **`/update-post [slug]`** - Update the updatedDate field
 - **`/list-posts`** - Display all posts with metadata
@@ -148,7 +149,40 @@ This repository includes custom commands in `.claude/skills/`:
 - **`/preview`** - Build and preview production site
 - **`/check-config`** - Verify site configuration
 
-See `.claude/skills/README.md` for full documentation.
+### Notion Integration
+- **`/notion-list-subjects [options]`** - List blog topics from Notion backlog
+- **`/notion-create-post [subject]`** - Create a blog post from a Notion topic
+- **`/notion-new-subject [name]`** - Add a new topic idea to Notion
+- **`/notion-sync-status [slug]`** - Mark a Notion topic as published when article is done
+
+See `.claude/commands/` for full documentation of each command.
+
+## Notion Integration
+
+This project integrates with Notion to manage a backlog of blog topics.
+
+### Setup
+
+1. **MCP Server**: Notion MCP server configured at `https://mcp.notion.com/mcp`
+2. **Authentication**: OAuth authentication via `/mcp` command
+3. **Database ID**: Stored in `.env.local` as `NOTION_SUBJECTS_DATABASE_ID`
+
+### Notion Database Structure
+
+The "Sujets" database contains:
+- **Nom**: Topic name (used for title matching)
+- **Description**: Optional topic description
+- **Section**: Category (MLOps, Methods, Code assistant, Dev agentique, Cloud, Infra, Model training)
+- **Formations**: Links to related training courses
+- **Tâche associée**: Optional link to associated tasks
+
+### Workflow
+
+1. **Add ideas**: Use `/notion-new-subject` to quickly capture blog topic ideas
+2. **Create posts**: Use `/notion-create-post` to generate an article from a Notion topic
+3. **Sync status**: Use `/notion-sync-status` to mark topics as published
+
+**Important**: No links are stored between blog posts and Notion. Claude dynamically matches posts to topics by comparing titles.
 
 ## Important Notes
 
@@ -157,3 +191,4 @@ See `.claude/skills/README.md` for full documentation.
 - Theme preference persists across page loads via localStorage
 - Hero images are processed by Astro's built-in image optimization
 - The blog uses Astro's default SSG mode (no SSR)
+- Blog post titles should match Notion topic names exactly for proper synchronization
