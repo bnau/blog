@@ -1,0 +1,22 @@
+---
+import { PUBLIC_GOATCOUNTER_CODE } from '../consts';
+
+// GoatCounter Analytics Integration
+// Only loads in production when PUBLIC_GOATCOUNTER_CODE is set
+
+const goatCounterCode = PUBLIC_GOATCOUNTER_CODE;
+const isProduction = import.meta.env.PROD;
+
+// Only inject script if we have a code and we're in production
+const shouldLoadAnalytics = goatCounterCode && isProduction;
+---
+
+{
+	shouldLoadAnalytics && (
+		<script
+			data-goatcounter={`https://${goatCounterCode}.goatcounter.com/count`}
+			async
+			src="https://gc.zgo.at/count.js"
+		/>
+	)
+}

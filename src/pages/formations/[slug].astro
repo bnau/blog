@@ -115,7 +115,10 @@ const breadcrumbs = generateBreadcrumbList([
 							ou pour adapter le contenu à vos besoins spécifiques.
 						</p>
 						<div class="cta-buttons">
-							<a href={`mailto:${SOCIAL_PROFILES.email}`} class="cta-button primary">
+							<a href={`mailto:${SOCIAL_PROFILES.email}`}
+							class="cta-button primary"
+							data-goatcounter-click={`contact-formation-${formation.id}`}
+							data-goatcounter-referrer={Astro.url.host + Astro.url.pathname}>
 								<Icon name="mdi:email" size={20} />
 								Me contacter
 							</a>

@@ -2,6 +2,7 @@ export const SITE_TITLE = 'Bertrand Nau';
 export const SITE_DESCRIPTION =
 	'Formations et conseil en IA pour développeurs : agentic coding, Claude Code, Model Context Protocol (MCP), développement assisté par IA. Articles techniques et formations par Bertrand Nau.';
 export const SITE_URL = 'https://bertrand-nau.fr';
+export const PUBLIC_GOATCOUNTER_CODE = 'bnau';
 
 export const SOCIAL_PROFILES = {
 	email: 'contact@bertrand-nau.fr',

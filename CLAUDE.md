@@ -82,6 +82,10 @@ The theme toggle (`src/components/ThemeToggle.astro`) implements:
 
 Theme CSS is defined in `src/styles/global.css` using CSS custom properties with `:root` for light mode and `[data-theme="dark"]` for dark mode.
 
+### Analytics System
+
+The blog uses **GoatCounter** for privacy-friendly web analytics.
+
 ### Configuration
 
 **Site-level config** (`src/consts.ts`):

@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import { SITE_TITLE, AEO_KEYWORDS } from '../consts';
 import profileImage from '../assets/profile.jpeg';
 import { getImage } from 'astro:assets';
+import Analytics from './Analytics.astro';
 
 interface Props {
 	title: string;
@@ -135,4 +136,7 @@ const allKeywords = [...keywords, ...AEO_KEYWORDS.primary].join(', ');
 	name="google-site-verification"
 	content="i4Md99kJ_QGYfb4FJUmnmAOOezkFPLQieY5eg3E-Kww"
 />
+
+<!-- Analytics (only in production) -->
+<Analytics />
 
